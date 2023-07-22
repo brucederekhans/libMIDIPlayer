@@ -9,6 +9,7 @@ struct TMIDI{
 	unsigned short countTracks;
 	unsigned short countTicks;
 	unsigned int tempo;
+	double tickLength;
 };
 //---------------------------------------------------------------------------
 #endif
