@@ -6,6 +6,7 @@
 //---------------------------------------------------------------------------
 struct TMIDI{
 	unsigned char isPlaying;
+	unsigned char isPaused;
 	unsigned short countTracks;
 	unsigned short countTicks;
 	unsigned int tempo;
