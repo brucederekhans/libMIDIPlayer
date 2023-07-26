@@ -10,6 +10,7 @@ struct TMIDITrackHeader{
 	unsigned char * pData;
 	double tickDuration;
 	double triggerTime;
+	unsigned char lastCommand;
 };
 //---------------------------------------------------------------------------
 #endif
