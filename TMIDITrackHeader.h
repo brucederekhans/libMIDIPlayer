@@ -1,5 +1,5 @@
-﻿#ifndef TMIDITRACKHEADERH
-#define TMIDITRACKHEADERH
+﻿#ifndef TMIDITrackHeaderH
+#define TMIDITrackHeaderH
 //---------------------------------------------------------------------------
 #include <windows.h>
 //---------------------------------------------------------------------------
