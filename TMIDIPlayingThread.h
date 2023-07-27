@@ -14,6 +14,8 @@ public:
 	__fastcall ~TMIDIPlayingThread();
 protected:
 	void __fastcall Execute();
+private:
+	char filename[MAX_PATH];
 };
 //---------------------------------------------------------------------------
 #endif
