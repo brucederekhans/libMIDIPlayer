@@ -10,7 +10,7 @@
 class TMIDIPlayingThread : public TThread
 {
 public:
-	__fastcall TMIDIPlayingThread(char * pFilename, bool CreateSuspended);
+	__fastcall TMIDIPlayingThread(char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended);
 	__fastcall ~TMIDIPlayingThread();
 protected:
 	void __fastcall Execute();

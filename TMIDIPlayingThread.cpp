@@ -20,8 +20,9 @@
 //        Form1->Caption = "Updated in a thread";
 //      }
 //---------------------------------------------------------------------------
-__fastcall TMIDIPlayingThread::TMIDIPlayingThread(char * pFilename, bool CreateSuspended)
-	: TThread(CreateSuspended)
+__fastcall TMIDIPlayingThread::TMIDIPlayingThread(char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
+	: TThread(CreateSuspended),
+	volumePercentage(AVolumePercentage)
 {
 	strcpy(this->filename, pFilename);
 }
