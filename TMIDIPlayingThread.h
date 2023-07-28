@@ -16,6 +16,7 @@ protected:
 	void __fastcall Execute();
 private:
 	char filename[MAX_PATH];
+	unsigned char volumePercentage;
 };
 //---------------------------------------------------------------------------
 #endif
