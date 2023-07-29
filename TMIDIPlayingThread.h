@@ -19,6 +19,7 @@ private:
 	unsigned char volumePercentage;
 	unsigned long long selectedOuputDeviceIndex;
 	bool isSelectedOuputDeviceValid;
+	bool isTrackHeadersValid;
 };
 //---------------------------------------------------------------------------
 #endif
