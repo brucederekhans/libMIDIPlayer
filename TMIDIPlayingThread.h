@@ -22,6 +22,7 @@ private:
 	bool isTrackHeadersValid;
 	HMIDIOUT hMIDIOut;
 	TMIDI midi;
+	TMIDITrackHeader midiTrackHeader;
 };
 //---------------------------------------------------------------------------
 #endif
