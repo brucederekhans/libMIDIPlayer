@@ -28,6 +28,17 @@ __fastcall TMIDIPlayingThread::TMIDIPlayingThread(char * pFilename, unsigned cha
 	isTrackHeadersValid(false)
 {
 	strcpy(this->filename, pFilename);
+	unsigned long long i, countMIDIOutDevices = midiOutGetNumDevs();
+	for(i = 0; i < countMIDIOutDevices; i++)
+	{
+		MIDIOUTCAPS midiOutCaps;
+		if(midiOutGetDevCaps(i, &midiOutCaps, sizeof(MIDIOUTCAPS)) == MMSYSERR_NOERROR)
+		{
+			this->selectedOuputDeviceIndex = i;
+			this->isSelectedOuputDeviceValid = true;
+			break;
+		}
+	}
 }
 //---------------------------------------------------------------------------
 __fastcall TMIDIPlayingThread::~TMIDIPlayingThread()
