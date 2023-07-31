@@ -22,7 +22,10 @@
 //---------------------------------------------------------------------------
 __fastcall TMIDIPlayingThread::TMIDIPlayingThread(char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
 	: TThread(CreateSuspended),
-	volumePercentage(AVolumePercentage)
+	volumePercentage(AVolumePercentage),
+	selectedOuputDeviceIndex(0),
+	isSelectedOuputDeviceValid(false),
+	isTrackHeadersValid(false)
 {
 	strcpy(this->filename, pFilename);
 }
