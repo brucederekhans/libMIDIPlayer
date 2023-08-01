@@ -49,5 +49,6 @@ __fastcall TMIDIPlayingThread::~TMIDIPlayingThread()
 void __fastcall TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----
+	memset(&this->midi, 0, sizeof(TMIDI));
 }
 //---------------------------------------------------------------------------
