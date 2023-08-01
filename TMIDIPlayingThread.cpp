@@ -50,5 +50,15 @@ void __fastcall TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----
 	memset(&this->midi, 0, sizeof(TMIDI));
+
+	if(this->isSelectedOuputDeviceValid)
+	{
+		FILE * pMIDIFile;
+		fopen_s(&pMIDIFile, this->filename, "rb");
+		if(pMIDIFile != nullptr)
+		{
+			fclose(pMIDIFile);
+		}
+	}
 }
 //---------------------------------------------------------------------------
