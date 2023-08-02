@@ -21,7 +21,6 @@ private:
 	bool isSelectedOuputDeviceValid;
 	bool isTrackHeadersValid;
 	HMIDIOUT hMIDIOut;
-	TMIDI midi;
 };
 //---------------------------------------------------------------------------
 #endif
