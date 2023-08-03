@@ -20,7 +20,6 @@ private:
 	unsigned long long selectedOuputDeviceIndex;
 	bool isSelectedOuputDeviceValid;
 	bool isTrackHeadersValid;
-	HMIDIOUT hMIDIOut;
 };
 //---------------------------------------------------------------------------
 #endif
