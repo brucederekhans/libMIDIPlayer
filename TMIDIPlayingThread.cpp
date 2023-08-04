@@ -58,6 +58,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 			TMIDI midi;
 			memset(&midi, 0, sizeof(TMIDI));
 			unsigned char t4Bytes[4];
+			fread(t4Bytes, 1, 4, pMIDIFile);
 
 			fclose(pMIDIFile);
 		}
