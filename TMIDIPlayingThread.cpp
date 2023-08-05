@@ -62,6 +62,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 			if(!memcmp(t4Bytes, MThd, 4))
 			{
 				fseek(pMIDIFile, 4, SEEK_CUR);
+				fseek(pMIDIFile, 2, SEEK_CUR);
 			}
 
 			fclose(pMIDIFile);
