@@ -15,3 +15,10 @@ unsigned short readUShortFromMIDIFile(FILE * pMIDIFile)
 	return static_cast<unsigned short>(MAKEWORD(loByte, hiByte));
 }
 //---------------------------------------------------------------------------
+unsigned int readUIntFromMIDIFile(FILE * pMIDIFile)
+{
+	unsigned short hi2Bytes = readUShortFromMIDIFile(pMIDIFile);
+	unsigned short lo2Bytes = readUShortFromMIDIFile(pMIDIFile);
+	return static_cast<unsigned int>((hi2Bytes << 16) + lo2Bytes);
+}
+//---------------------------------------------------------------------------
