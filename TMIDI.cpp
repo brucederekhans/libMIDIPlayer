@@ -8,11 +8,12 @@
 //---------------------------------------------------------------------------
 const char MThd[5] = "MThd";
 //---------------------------------------------------------------------------
-unsigned short readUShortFromMIDIFile(FILE * pMIDIFile)
+unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile)
 {
 	unsigned char hiByte = static_cast<unsigned char>(fgetc(pMIDIFile));
 	unsigned char loByte = static_cast<unsigned char>(fgetc(pMIDIFile));
-	return static_cast<unsigned short>(MAKEWORD(loByte, hiByte));
+	(*pDst) = static_cast<unsigned short>(MAKEWORD(loByte, hiByte));
+	return 2;
 }
 //---------------------------------------------------------------------------
 unsigned int readUIntFromMIDIFile(FILE * pMIDIFile)
