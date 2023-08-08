@@ -19,6 +19,6 @@ struct TMIDI{
 extern const char MThd[5];
 //---------------------------------------------------------------------------
 unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile);
-unsigned int readUIntFromMIDIFile(FILE * pMIDIFile);
+unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile);
 //---------------------------------------------------------------------------
 #endif

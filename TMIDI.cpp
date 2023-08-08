@@ -16,11 +16,12 @@ unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFil
 	return 2;
 }
 //---------------------------------------------------------------------------
-unsigned int readUIntFromMIDIFile(FILE * pMIDIFile)
+unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile)
 {
 	unsigned short hi2Bytes, lo2Bytes;
 	readUShortFromMIDIFile(&hi2Bytes, pMIDIFile);
 	readUShortFromMIDIFile(&lo2Bytes, pMIDIFile);
-	return static_cast<unsigned int>((hi2Bytes << 16) + lo2Bytes);
+	(*pDst) = static_cast<unsigned int>((hi2Bytes << 16) + lo2Bytes);
+	return 4;
 }
 //---------------------------------------------------------------------------
