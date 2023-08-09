@@ -13,7 +13,17 @@ unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFil
 	if(pMIDIFile != nullptr)
 	{
 		unsigned char hiByte = static_cast<unsigned char>(fgetc(pMIDIFile));
+		if(hiByte == EOF)
+		{
+			return EOF;
+		}
+
 		unsigned char loByte = static_cast<unsigned char>(fgetc(pMIDIFile));
+		if(loByte == EOF)
+		{
+			return EOF;
+		}
+
 		(*pDst) = static_cast<unsigned short>(MAKEWORD(loByte, hiByte));
 		return 2;
 	}
