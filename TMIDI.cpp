@@ -35,26 +35,24 @@ unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFil
 //---------------------------------------------------------------------------
 unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile)
 {
-	if(pMIDIFile != nullptr)
-	{
-		unsigned short hi2Bytes;
-		if(readUShortFromMIDIFile(&hi2Bytes, pMIDIFile) == 0)
-		{
-			return 0;
-		}
-
-		unsigned short lo2Bytes;
-		if(readUShortFromMIDIFile(&lo2Bytes, pMIDIFile) == 0)
-		{
-			return 0;
-		}
-
-		(*pDst) = static_cast<unsigned int>((hi2Bytes << 16) + lo2Bytes);
-		return 4;
-	}
-	else
+	if(pMIDIFile == nullptr)
 	{
 		return 0;
 	}
+
+	unsigned short hi2Bytes;
+	if(readUShortFromMIDIFile(&hi2Bytes, pMIDIFile) == 0)
+	{
+		return 0;
+	}
+
+	unsigned short lo2Bytes;
+	if(readUShortFromMIDIFile(&lo2Bytes, pMIDIFile) == 0)
+	{
+		return 0;
+	}
+
+	(*pDst) = static_cast<unsigned int>((hi2Bytes << 16) + lo2Bytes);
+	return 4;
 }
 //---------------------------------------------------------------------------
