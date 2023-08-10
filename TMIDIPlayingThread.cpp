@@ -53,8 +53,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 	{
 		FILE * pMIDIFile;
 		fopen_s(&pMIDIFile, this->filename, "rb");
-		if(pMIDIFile != nullptr)
+		try
 		{
+			if(pMIDIFile == nullptr)
+			{
+				throw -1;
+			}
+
 			TMIDI midi;
 			memset(&midi, 0, sizeof(TMIDI));
 			unsigned char t4Bytes[4];
@@ -66,6 +71,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 			}
 
 			fclose(pMIDIFile);
+		}
+		catch(int errCode)
+		{
+			//
 		}
 	}
 }
