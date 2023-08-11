@@ -53,32 +53,30 @@ void __fastcall TMIDIPlayingThread::Execute()
 	{
 		FILE * pMIDIFile;
 		fopen_s(&pMIDIFile, this->filename, "rb");
-		try
+		if(pMIDIFile != nullptr)
 		{
-			if(pMIDIFile == nullptr)
+			try
 			{
-				throw -1;
-			}
+				TMIDI midi;
+				memset(&midi, 0, sizeof(TMIDI));
+				unsigned char t4Bytes[4];
+				if(fread(t4Bytes, 1, 4, pMIDIFile) != 4)
+				{
+					throw -1;
+				}
 
-			TMIDI midi;
-			memset(&midi, 0, sizeof(TMIDI));
-			unsigned char t4Bytes[4];
-			if(fread(t4Bytes, 1, 4, pMIDIFile) != 4)
+				if(!memcmp(t4Bytes, MThd, 4))
+				{
+					fseek(pMIDIFile, 6, SEEK_CUR);
+					readUShortFromMIDIFile(&midi.countTracks, pMIDIFile);
+				}
+
+				fclose(pMIDIFile);
+			}
+			catch(int errCode)
 			{
-				throw -2;
+				//
 			}
-
-			if(!memcmp(t4Bytes, MThd, 4))
-			{
-				fseek(pMIDIFile, 6, SEEK_CUR);
-				readUShortFromMIDIFile(&midi.countTracks, pMIDIFile);
-			}
-
-			fclose(pMIDIFile);
-		}
-		catch(int errCode)
-		{
-			//
 		}
 	}
 }
