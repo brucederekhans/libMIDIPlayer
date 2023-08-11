@@ -63,7 +63,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 			TMIDI midi;
 			memset(&midi, 0, sizeof(TMIDI));
 			unsigned char t4Bytes[4];
-			fread(t4Bytes, 1, 4, pMIDIFile);
+			if(fread(t4Bytes, 1, 4, pMIDIFile) != 4)
+			{
+				throw -2;
+			}
+
 			if(!memcmp(t4Bytes, MThd, 4))
 			{
 				fseek(pMIDIFile, 6, SEEK_CUR);
