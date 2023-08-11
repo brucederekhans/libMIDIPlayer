@@ -75,7 +75,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 			}
 			catch(int errCode)
 			{
-				//
+				fclose(pMIDIFile);
 			}
 		}
 	}
