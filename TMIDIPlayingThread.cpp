@@ -75,7 +75,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -3;
 				}
 
-				readUShortFromMIDIFile(&midi.countTracks, pMIDIFile);
+				if(readUShortFromMIDIFile(&midi.countTracks, pMIDIFile) != 2)
+				{
+					throw -4;
+				}
 
 				fclose(pMIDIFile);
 			}
