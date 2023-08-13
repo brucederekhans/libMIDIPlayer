@@ -7,6 +7,7 @@
 #pragma package(smart_init)
 //---------------------------------------------------------------------------
 const char MThd[5] = "MThd";
+const char MTrk[5] = "MTrk";
 //---------------------------------------------------------------------------
 unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile)
 {
