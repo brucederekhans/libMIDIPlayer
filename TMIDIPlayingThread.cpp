@@ -80,6 +80,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -4;
 				}
 
+				if(readUShortFromMIDIFile(&midi.countTicks, pMIDIFile) != 2)
+				{
+					throw -5;
+				}
+
 				fclose(pMIDIFile);
 			}
 			catch(int errCode)
