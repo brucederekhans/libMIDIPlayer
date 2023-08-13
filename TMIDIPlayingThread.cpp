@@ -85,6 +85,12 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -5;
 				}
 
+				unsigned short iTrack = 0;
+				while(!feof(pMIDIFile))
+				{
+					//
+				}
+
 				fclose(pMIDIFile);
 			}
 			catch(int errCode)
