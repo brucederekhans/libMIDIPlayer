@@ -91,7 +91,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 					unsigned char t4Bytes[4];
 					if(fread(t4Bytes, 1, 4, pMIDIFile) == 4)
 					{
-						//
+						if(!memcmp(t4Bytes, MTrk, 4))
+						{
+							//
+						}
 					}
 				}
 
