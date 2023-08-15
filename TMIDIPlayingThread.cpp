@@ -86,19 +86,26 @@ void __fastcall TMIDIPlayingThread::Execute()
 				}
 
 				TMIDITrackHeader * midiTrackHeaders = new TMIDITrackHeader[midi.countTracks];
-				unsigned short iTrack = 0;
-				while(!feof(pMIDIFile))
+				try
 				{
-					unsigned char t4Bytes[4];
-					if(fread(t4Bytes, 1, 4, pMIDIFile) == 4)
+					unsigned short iTrack = 0;
+					while(!feof(pMIDIFile))
 					{
-						if(!memcmp(t4Bytes, MTrk, 4))
+						unsigned char t4Bytes[4];
+						if(fread(t4Bytes, 1, 4, pMIDIFile) == 4)
 						{
-							//
+							if(!memcmp(t4Bytes, MTrk, 4))
+							{
+								//
+							}
 						}
 					}
+					this->isTrackHeadersValid = true;
 				}
-				this->isTrackHeadersValid = true;
+				catch(int errCode)
+				{
+					//
+				}
 
 				fclose(pMIDIFile);
 			}
