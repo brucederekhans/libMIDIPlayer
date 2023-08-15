@@ -85,6 +85,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -5;
 				}
 
+				TMIDITrackHeader * midiTrackHeaders = new TMIDITrackHeader[midi.countTracks];
 				unsigned short iTrack = 0;
 				while(!feof(pMIDIFile))
 				{
