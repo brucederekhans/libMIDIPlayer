@@ -57,6 +57,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 		{
 			TMIDI midi;
 			memset(&midi, 0, sizeof(TMIDI));
+			TMIDITrackHeader * midiTrackHeaders;
 			try
 			{
 				unsigned char t4Bytes[4];
@@ -85,7 +86,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -5;
 				}
 
-				TMIDITrackHeader * midiTrackHeaders = new TMIDITrackHeader[midi.countTracks];
+				midiTrackHeaders = new TMIDITrackHeader[midi.countTracks];
 				try
 				{
 					unsigned short iTrack = 0;
