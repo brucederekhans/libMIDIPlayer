@@ -55,10 +55,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 		fopen_s(&pMIDIFile, this->filename, "rb");
 		if(pMIDIFile != nullptr)
 		{
+			TMIDI midi;
+			memset(&midi, 0, sizeof(TMIDI));
 			try
 			{
-				TMIDI midi;
-				memset(&midi, 0, sizeof(TMIDI));
 				unsigned char t4Bytes[4];
 				if(fread(t4Bytes, 1, 4, pMIDIFile) != 4)
 				{
