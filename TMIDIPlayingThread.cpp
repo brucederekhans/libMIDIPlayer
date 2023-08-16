@@ -104,7 +104,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 				}
 				catch(int errCode)
 				{
-					//
+					delete []midiTrackHeaders;
 				}
 
 				fclose(pMIDIFile);
