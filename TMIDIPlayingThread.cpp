@@ -97,7 +97,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 						{
 							if(!memcmp(t4Bytes, MTrk, 4))
 							{
-								//
+								throw -6;
 							}
 						}
 					}
