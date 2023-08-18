@@ -108,6 +108,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 							}
 
 							midiTrackHeaders[iTrack].data = new unsigned char[midiTrackHeaders[iTrack].length];
+
+							if(fread(midiTrackHeaders[iTrack].data, 1, midiTrackHeaders[iTrack].length, pMIDIFile) != midiTrackHeaders[iTrack].length)
+							{
+								throw -8;
+							}
 						}
 					}
 					this->isTrackHeadersValid = true;
