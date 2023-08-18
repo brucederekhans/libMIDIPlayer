@@ -106,6 +106,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 							{
 								throw -7;
 							}
+
+							midiTrackHeaders[iTrack].data = new unsigned char[midiTrackHeaders[iTrack].length];
 						}
 					}
 					this->isTrackHeadersValid = true;
