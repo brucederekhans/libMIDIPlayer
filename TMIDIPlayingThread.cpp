@@ -113,6 +113,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 							{
 								throw -8;
 							}
+
+							midiTrackHeaders[iTrack].pData = midiTrackHeaders[iTrack].data;
 						}
 					}
 					this->isTrackHeadersValid = true;
