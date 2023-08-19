@@ -117,6 +117,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 							midiTrackHeaders[iTrack].pData = midiTrackHeaders[iTrack].data;
 							midiTrackHeaders[iTrack].tickDuration = 0;
 							midiTrackHeaders[iTrack].triggerTime = 0;
+							midiTrackHeaders[iTrack].lastCommand = 0;
 						}
 					}
 					this->isTrackHeadersValid = true;
