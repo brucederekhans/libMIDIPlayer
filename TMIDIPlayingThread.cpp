@@ -123,6 +123,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 						}
 					}
 					this->isTrackHeadersValid = true;
+					midi.countTracks = iTrack;
 				}
 				catch(int errCode)
 				{
