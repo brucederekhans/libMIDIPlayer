@@ -131,6 +131,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 				}
 
 				fclose(pMIDIFile);
+
+				HMIDIOUT hMIDIOut;
 			}
 			catch(int errCode)
 			{
