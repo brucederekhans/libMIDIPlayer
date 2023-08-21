@@ -133,6 +133,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 				fclose(pMIDIFile);
 
 				HMIDIOUT hMIDIOut;
+				if(midiOutOpen(&hMIDIOut, static_cast<unsigned int>(this->selectedOuputDeviceIndex), 0, 0, 0) == MMSYSERR_NOERROR)
+				{
+					//
+				}
 			}
 			catch(int errCode)
 			{
