@@ -21,5 +21,6 @@ extern const char MTrk[5];
 //---------------------------------------------------------------------------
 unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile);
 unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile);
+double getHighResolutionTime();
 //---------------------------------------------------------------------------
 #endif
