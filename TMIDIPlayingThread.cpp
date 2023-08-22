@@ -137,6 +137,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 				{
 					midi.isPlaying = 1;
 					midi.tempo = 1000;
+					midi.tickLength = midi.tempo * 1.0 / midi.countTicks;
 				}
 			}
 			catch(int errCode)
