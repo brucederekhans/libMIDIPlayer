@@ -95,12 +95,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 						unsigned char t4Bytes[4];
 						if(fread(t4Bytes, 1, 4, pMIDIFile) == 4)
 						{
-							if(!memcmp(t4Bytes, MTrk, 4))
+							if(memcmp(t4Bytes, MTrk, 4))
 							{
 								throw -6;
 							}
 
 							midiTrackHeaders[iTrack].isEnabled = 1;
+							midiTrackHeaders[iTrack].isReadOnce = 0;
 
 							if(readUIntFromMIDIFile(midiTrackHeaders[iTrack].length, pMIDIFile) != 4)
 							{
