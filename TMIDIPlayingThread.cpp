@@ -140,9 +140,9 @@ void __fastcall TMIDIPlayingThread::Execute()
 					midi.tempo = 1000;
 					midi.tickLength = midi.tempo * 1.0 / midi.countTicks;
 
-					double tCurrentTime = getHighResolutionTime();
-					midi.currentTime = tCurrentTime;
+					midi.currentTime = getHighResolutionTime();
 
+					double tCurrentTime;
 					while(!midi.isStopRequested)
 					{
 						tCurrentTime = getHighResolutionTime();
