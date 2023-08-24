@@ -142,6 +142,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 
 					double tCurrentTime = getHighResolutionTime();
 					midi.currentTime = tCurrentTime;
+
+					while(!midi.isStopRequested)
+					{
+						//
+					}
 				}
 			}
 			catch(int errCode)
