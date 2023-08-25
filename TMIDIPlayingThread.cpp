@@ -148,6 +148,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 						tCurrentTime = getHighResolutionTime();
 						double nextTriggerTime = tCurrentTime + 1000;
 						unsigned char isAnyTrackEnabled = 0;
+						unsigned short iTrack;
+						for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
+						{
+							//
+						}
 					}
 				}
 			}
