@@ -147,6 +147,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					{
 						tCurrentTime = getHighResolutionTime();
 						double nextTriggerTime = tCurrentTime + 1000;
+						unsigned char isAnyTrackEnabled = 0;
 					}
 				}
 			}
