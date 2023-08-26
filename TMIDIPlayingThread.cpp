@@ -158,6 +158,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 								{
 									//
 								}
+								else
+								{
+									midiTrackHeaders[iTrack].isEnabled = 0;
+								}
 							}
 						}
 					}
