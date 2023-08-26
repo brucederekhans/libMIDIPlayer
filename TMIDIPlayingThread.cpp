@@ -154,6 +154,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 							if(midiTrackHeaders[iTrack].isEnabled)
 							{
 								isAnyTrackEnabled = 1;
+								if(midiTrackHeaders[iTrack].pData < (midiTrackHeaders[iTrack].data + midiTrackHeaders[iTrack].length))
+								{
+									//
+								}
 							}
 						}
 					}
