@@ -9,7 +9,7 @@ struct TMIDITrackHeader{
 	unsigned int length;
 	unsigned char * data;
 	unsigned char * pData;
-	double tickDuration;
+	double deltaTime;
 	double triggerTime;
 	unsigned char lastCommand;
 };
