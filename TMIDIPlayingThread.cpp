@@ -166,6 +166,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 									while(tCurrentTime >= midiTrackHeaders[iTrack].triggerTime)
 									{
 										midi.currentTime = tCurrentTime;
+
+										unsigned char command = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 									}
 								}
 								else
