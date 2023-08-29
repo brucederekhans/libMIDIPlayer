@@ -29,3 +29,10 @@ unsigned int readVLQFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
 	return vlq;
 }
 //---------------------------------------------------------------------------
+unsigned char readByteFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
+{
+	unsigned char data = *(pMIDITrackHeader->pData);
+	pMIDITrackHeader->pData++;
+	return data;
+}
+//---------------------------------------------------------------------------
