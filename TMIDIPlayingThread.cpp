@@ -168,6 +168,15 @@ void __fastcall TMIDIPlayingThread::Execute()
 										midi.currentTime = tCurrentTime;
 
 										unsigned char command = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+										if(command < 128)
+										{
+											midiTrackHeaders[iTrack].pData--;
+											command = midiTrackHeaders[iTrack].lastCommand;
+										}
+										else
+										{
+											midiTrackHeaders[iTrack].lastCommand = command;
+										}
 									}
 								}
 								else
