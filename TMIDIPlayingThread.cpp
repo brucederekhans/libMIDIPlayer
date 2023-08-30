@@ -181,6 +181,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 										if(command == 0xFF)
 										{
 											command = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+											unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 										}
 									}
 								}
