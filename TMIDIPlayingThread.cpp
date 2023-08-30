@@ -177,6 +177,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 										{
 											midiTrackHeaders[iTrack].lastCommand = command;
 										}
+
+										if(command == 0xFF)
+										{
+											command = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+										}
 									}
 								}
 								else
