@@ -184,7 +184,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 											unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 											if(tLength <= (midiTrackHeaders[iTrack].pData - midiTrackHeaders[iTrack].data + midiTrackHeaders[iTrack].length))
 											{
-												//
+												if(command == 0x0)
+												{
+													readUShortFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+												}
 											}
 										}
 									}
