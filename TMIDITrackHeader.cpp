@@ -36,3 +36,10 @@ unsigned char readByteFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
 	return data;
 }
 //---------------------------------------------------------------------------
+unsigned short readUShortFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
+{
+	unsigned char high = readByteFromMIDITrackHeader(pMIDITrackHeader);
+	unsigned char low = readByteFromMIDITrackHeader(pMIDITrackHeader);
+	return MAKEWORD(low, high);
+}
+//---------------------------------------------------------------------------
