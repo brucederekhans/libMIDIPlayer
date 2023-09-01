@@ -186,7 +186,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											{
 												if(command == 0x0)
 												{
-													readUShortFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													midiTrackHeaders[iTrack].pData += 2;
 												}
 											}
 										}
