@@ -188,6 +188,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 												{
 													midiTrackHeaders[iTrack].pData += 2;
 												}
+												else if(command <= 0x07)
+												{
+													midiTrackHeaders[iTrack].pData += tLength;
+												}
 											}
 										}
 									}
