@@ -200,6 +200,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 												{
 													midiTrackHeaders[iTrack].pData++;
 												}
+												else if(command == 0x2F)
+												{
+													midiTrackHeaders[iTrack].isEnabled = 0;
+												}
 											}
 										}
 									}
