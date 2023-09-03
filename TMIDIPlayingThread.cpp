@@ -210,6 +210,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 													memcpy(t3Bytes, midiTrackHeaders[iTrack].pData, 3);
 													midiTrackHeaders[iTrack].pData += 3;
 													double newTempo = ((t3Bytes[0] << 16) + (t3Bytes[1] << 8) + t3Bytes[2]) / 1000;
+													double orgTickLength = midi.tickLength;
 												}
 											}
 										}
