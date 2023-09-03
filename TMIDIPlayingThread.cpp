@@ -209,6 +209,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 													unsigned char t3Bytes[3];
 													memcpy(t3Bytes, midiTrackHeaders[iTrack].pData, 3);
 													midiTrackHeaders[iTrack].pData += 3;
+													double newTempo = ((t3Bytes[0] << 16) + (t3Bytes[1] << 8) + t3Bytes[2]) / 1000;
 												}
 											}
 										}
