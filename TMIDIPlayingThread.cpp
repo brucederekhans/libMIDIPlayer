@@ -223,6 +223,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 														}
 													}
 												}
+												else if(command == 0x54)
+												{
+													midiTrackHeaders[iTrack].pData += 5;
+												}
 											}
 										}
 									}
