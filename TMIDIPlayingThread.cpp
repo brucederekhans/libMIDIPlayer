@@ -245,6 +245,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 												}
 											}
 										}
+										else
+										{
+											unsigned char hiNybble = HI_NYBBLE(command);
+										}
 									}
 								}
 								else
