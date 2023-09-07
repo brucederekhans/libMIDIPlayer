@@ -249,6 +249,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 										{
 											unsigned char hiNybble = HI_NYBBLE(command);
 											unsigned char loNybble = LO_NYBBLE(command);
+											if(hiNybble == 0x08)
+											{
+												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+											}
 										}
 									}
 								}
