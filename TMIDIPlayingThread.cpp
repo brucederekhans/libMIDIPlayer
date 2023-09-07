@@ -248,6 +248,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 										else
 										{
 											unsigned char hiNybble = HI_NYBBLE(command);
+											unsigned char loNybble = LO_NYBBLE(command);
 										}
 									}
 								}
