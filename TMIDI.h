@@ -19,6 +19,8 @@ struct TMIDI{
 extern const char MThd[5];
 extern const char MTrk[5];
 //---------------------------------------------------------------------------
+#define MAKEBYTE(hiNybble, loNybble) (((hiNybble) << 4) | (loNybble))
+//---------------------------------------------------------------------------
 unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile);
 unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile);
 double getHighResolutionTime();
