@@ -253,6 +253,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											{
 												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
 												unsigned char velocity = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
 											}
 										}
 									}
