@@ -255,6 +255,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 												unsigned char velocity = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
 												setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
 											}
+											else if(hiNybble == 0x09)
+											{
+												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+											}
 										}
 									}
 								}
