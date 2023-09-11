@@ -265,6 +265,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											{
 												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
 												unsigned char touch = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, key), MAKEWORD(touch, 0))));
 											}
 										}
 									}
