@@ -264,6 +264,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											else if(hiNybble == 0x0A)
 											{
 												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												unsigned char touch = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
 											}
 										}
 									}
