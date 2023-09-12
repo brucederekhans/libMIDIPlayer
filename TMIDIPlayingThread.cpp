@@ -271,6 +271,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											{
 												unsigned char controller = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
 												unsigned char controllerValue = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, controller), MAKEWORD(controllerValue, 0))));
 											}
 										}
 									}
