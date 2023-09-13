@@ -251,31 +251,31 @@ void __fastcall TMIDIPlayingThread::Execute()
 											unsigned char loNybble = LO_NYBBLE(command);
 											if(hiNybble == 0x08)
 											{
-												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
-												unsigned char velocity = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+												unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
 											}
 											else if(hiNybble == 0x09)
 											{
-												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
-												unsigned char velocity = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+												unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												setNoteOnOff(1, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
 											}
 											else if(hiNybble == 0x0A)
 											{
-												unsigned char key = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
-												unsigned char touch = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+												unsigned char touch = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, key), MAKEWORD(touch, 0))));
 											}
 											else if(hiNybble == 0x0B)
 											{
-												unsigned char controller = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
-												unsigned char controllerValue = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												unsigned char controller = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+												unsigned char controllerValue = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, controller), MAKEWORD(controllerValue, 0))));
 											}
 											else if(hiNybble == 0x0C)
 											{
-												unsigned char instrument = readByteFromMIDITrackHeader(midiTrackHeaders[iTrack]);
+												unsigned char instrument = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, instrument), MAKEWORD(0, 0))));
 											}
 										}
