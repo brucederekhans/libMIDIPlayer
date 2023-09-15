@@ -287,6 +287,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											{
 												unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												unsigned char hiByte = HIBYTE(tUShort);
+												unsigned char loByte = LOBYTE(tUShort);
 											}
 										}
 									}
