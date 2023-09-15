@@ -288,6 +288,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 												unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
 												unsigned char hiByte = HIBYTE(tUShort);
 												unsigned char loByte = LOBYTE(tUShort);
+												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, hiByte), MAKEWORD(loByte, 0))));
 											}
 										}
 									}
