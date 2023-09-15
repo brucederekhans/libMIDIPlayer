@@ -286,6 +286,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 											else if(hiNybble == 0x0E)
 											{
 												unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+												unsigned char hiByte = HIBYTE(tUShort);
 											}
 										}
 									}
