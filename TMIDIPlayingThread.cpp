@@ -296,6 +296,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 												{
 													midiTrackHeaders[iTrack].pData += 2;
 												}
+												else if(loNybble == 0x03)
+												{
+													midiTrackHeaders[iTrack].pData++;
+												}
 											}
 										}
 									}
