@@ -300,6 +300,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 												{
 													midiTrackHeaders[iTrack].pData++;
 												}
+												else if( (loNybble == 0x00) || (loNybble == 0x07))
+												{
+													unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													midiTrackHeaders[iTrack].pData += tLength;
+												}
 											}
 										}
 									}
