@@ -290,6 +290,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 												unsigned char loByte = LOBYTE(tUShort);
 												midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, hiByte), MAKEWORD(loByte, 0))));
 											}
+											else if(hiNybble == 0x0F)
+											{
+												if(loNybble == 0x02)
+												{
+													midiTrackHeaders[iTrack].pData += 2;
+												}
+											}
 										}
 									}
 								}
