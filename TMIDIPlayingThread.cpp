@@ -317,6 +317,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 											break;
 										}
 									}
+
+									midiTrackHeaders[iTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]) * midi.tickLength;
 								}
 								else
 								{
