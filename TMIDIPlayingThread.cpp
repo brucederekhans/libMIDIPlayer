@@ -311,6 +311,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 												midiTrackHeaders[iTrack].pData++;
 											}
 										}
+
+										if(!midiTrackHeaders[iTrack].isEnabled)
+										{
+											break;
+										}
 									}
 								}
 								else
