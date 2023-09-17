@@ -306,6 +306,10 @@ void __fastcall TMIDIPlayingThread::Execute()
 													midiTrackHeaders[iTrack].pData += tLength;
 												}
 											}
+											else
+											{
+												midiTrackHeaders[iTrack].pData++;
+											}
 										}
 									}
 								}
