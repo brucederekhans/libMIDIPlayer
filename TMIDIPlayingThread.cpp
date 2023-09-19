@@ -336,6 +336,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 							}
 						}
 						tCurrentTime = getHighResolutionTime();
+
+						if(midi.isPaused)
+						{
+							setAllNotesOff(&midi, &hMIDIOut);
+						}
 					}
 				}
 			}
