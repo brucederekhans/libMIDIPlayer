@@ -341,6 +341,14 @@ void __fastcall TMIDIPlayingThread::Execute()
 						{
 							setAllNotesOff(&midi, &hMIDIOut);
 							double tPausedTime = tCurrentTime;
+							while(true)
+							{
+								Sleep(10);
+								if(!midi.isPaused)
+								{
+									break;
+								}
+							}
 						}
 					}
 				}
