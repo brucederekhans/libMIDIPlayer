@@ -344,7 +344,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 							while(true)
 							{
 								Sleep(10);
-								if(!midi.isPaused)
+								if( (!midi.isPaused) || midi.isStopRequested )
 								{
 									break;
 								}
