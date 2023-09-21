@@ -349,6 +349,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 									break;
 								}
 							}
+
+							if(midi.isStopRequested)
+							{
+								break;
+							}
 						}
 					}
 				}
