@@ -356,6 +356,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 							}
 
 							tCurrentTime = getHighResolutionTime();
+							nextTriggerTime += (tCurrentTime - tPausedTime);
 						}
 					}
 				}
