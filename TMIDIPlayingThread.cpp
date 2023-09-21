@@ -354,6 +354,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 							{
 								break;
 							}
+
+							tCurrentTime = getHighResolutionTime();
 						}
 					}
 				}
