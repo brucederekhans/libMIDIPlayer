@@ -364,7 +364,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 							}
 						}
 
-						while(tCurrentTime < nextTriggerTime)
+						while( (!midi.isStopRequested) && (tCurrentTime < nextTriggerTime) )
 						{
 							Sleep(static_cast<DWORD>(nextTriggerTime - tCurrentTime));
 						}
