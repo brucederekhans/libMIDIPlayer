@@ -357,6 +357,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 
 							tCurrentTime = getHighResolutionTime();
 							nextTriggerTime += (tCurrentTime - tPausedTime);
+
+							for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
+							{
+								midiTrackHeaders[iTrack].triggerTime += (tCurrentTime - tPausedTime);
+							}
 						}
 					}
 				}
