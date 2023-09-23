@@ -369,6 +369,11 @@ void __fastcall TMIDIPlayingThread::Execute()
 							Sleep(static_cast<DWORD>(nextTriggerTime - tCurrentTime));
 							tCurrentTime = getHighResolutionTime();
 						}
+
+						if(!isAnyTrackEnabled)
+						{
+							break;
+						}
 					}
 				}
 			}
