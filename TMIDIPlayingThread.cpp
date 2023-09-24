@@ -383,6 +383,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					do
 					{
 						resultMIDIOutClose = midiOutClose(hMIDIOut);
+						Sleep(10);
 					}while(resultMIDIOutClose != MMSYSERR_NOERROR);
 				}
 			}
