@@ -377,6 +377,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 					}
 
 					setAllNotesOff(&midi, &hMIDIOut);
+					Sleep(10);
+					midiOutReset(hMIDIOut);
 				}
 			}
 			catch(int errCode)
