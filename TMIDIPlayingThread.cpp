@@ -389,6 +389,15 @@ void __fastcall TMIDIPlayingThread::Execute()
 
 					midi.isPlaying = 0;
 				}
+
+				if(this->isTrackHeadersValid)
+				{
+					unsigned short iTrack;
+					for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
+					{
+						midiTrackHeaders[iTrack].pData = nullptr;
+					}
+				}
 			}
 			catch(int errCode)
 			{
