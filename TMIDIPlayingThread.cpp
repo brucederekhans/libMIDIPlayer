@@ -380,10 +380,16 @@ void __fastcall TMIDIPlayingThread::Execute()
 					Sleep(10);
 					midiOutReset(hMIDIOut);
 					MMRESULT resultMIDIOutClose;
+					unsigned short iTryClosing = 0;
 					do
 					{
 						resultMIDIOutClose = midiOutClose(hMIDIOut);
 						Sleep(10);
+						iTryClosing++;
+						if(iTryClosing >= 20)
+						{
+							break;
+						}
 					}while(resultMIDIOutClose != MMSYSERR_NOERROR);
 				}
 			}
