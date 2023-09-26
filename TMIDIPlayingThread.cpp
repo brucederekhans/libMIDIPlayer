@@ -385,6 +385,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 						Sleep(10);
 						iTryClosing++;
 					}
+					hMIDIOut = nullptr;
 				}
 			}
 			catch(int errCode)
