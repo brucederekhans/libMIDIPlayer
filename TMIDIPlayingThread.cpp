@@ -386,6 +386,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 						iTryClosing++;
 					}
 					hMIDIOut = nullptr;
+
+					midi.isPlaying = 0;
 				}
 			}
 			catch(int errCode)
