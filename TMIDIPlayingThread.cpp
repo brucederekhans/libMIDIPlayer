@@ -386,7 +386,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 						resultMIDIOutClose = midiOutClose(hMIDIOut);
 						Sleep(10);
 						iTryClosing++;
-						if(iTryClosing >= 20)
+						if(iTryClosing >= 100)
 						{
 							break;
 						}
