@@ -24,8 +24,7 @@ __fastcall TMIDIPlayingThread::TMIDIPlayingThread(char * pFilename, unsigned cha
 	: TThread(CreateSuspended),
 	volumePercentage(AVolumePercentage),
 	selectedOuputDeviceIndex(0),
-	isSelectedOuputDeviceValid(false),
-	isTrackHeadersValid(false)
+	isSelectedOuputDeviceValid(false)
 {
 	strcpy(this->filename, pFilename);
 	unsigned long long i, countMIDIOutDevices = midiOutGetNumDevs();
@@ -86,6 +85,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -5;
 				}
 
+				bool isTrackHeadersValid = false;
 				midiTrackHeaders = new TMIDITrackHeader[midi.countTracks];
 				try
 				{
@@ -123,7 +123,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 							iTrack++;
 						}
 					}
-					this->isTrackHeadersValid = true;
+					isTrackHeadersValid = true;
 					midi.countTracks = iTrack;
 				}
 				catch(int errCode)
@@ -390,7 +390,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					midi.isPlaying = 0;
 				}
 
-				if(this->isTrackHeadersValid)
+				if(isTrackHeadersValid)
 				{
 					unsigned short iTrack;
 					for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
@@ -404,7 +404,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					}
 					delete []midiTrackHeaders;
 
-					this->isTrackHeadersValid = false;
+					isTrackHeadersValid = false;
 				}
 			}
 			catch(int errCode)
