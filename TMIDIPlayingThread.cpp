@@ -403,6 +403,8 @@ void __fastcall TMIDIPlayingThread::Execute()
 						memset(&midiTrackHeaders[iTrack], 0, sizeof(TMIDITrackHeader));
 					}
 					delete []midiTrackHeaders;
+
+					this->isTrackHeadersValid = false;
 				}
 			}
 			catch(int errCode)
