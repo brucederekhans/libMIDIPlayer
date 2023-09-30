@@ -145,7 +145,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					midi.currentTime = getHighResolutionTime();
 
 					double tCurrentTime;
-					while(!midi.isStopRequested)
+					while(!this->isStopRequested)
 					{
 						tCurrentTime = getHighResolutionTime();
 						double nextTriggerTime = tCurrentTime + 1000;
@@ -339,20 +339,20 @@ void __fastcall TMIDIPlayingThread::Execute()
 						}
 						tCurrentTime = getHighResolutionTime();
 
-						if(midi.isPaused)
+						if(this->isPaused)
 						{
 							setAllNotesOff(&midi, &hMIDIOut);
 							double tPausedTime = tCurrentTime;
 							while(true)
 							{
 								Sleep(10);
-								if( (!midi.isPaused) || midi.isStopRequested )
+								if( (!this->isPaused) || this->isStopRequested )
 								{
 									break;
 								}
 							}
 
-							if(midi.isStopRequested)
+							if(this->isStopRequested)
 							{
 								break;
 							}
@@ -366,7 +366,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 							}
 						}
 
-						while( (!midi.isStopRequested) && (tCurrentTime < nextTriggerTime) )
+						while( (!this->isStopRequested) && (tCurrentTime < nextTriggerTime) )
 						{
 							Sleep(static_cast<DWORD>(nextTriggerTime - tCurrentTime));
 							tCurrentTime = getHighResolutionTime();
