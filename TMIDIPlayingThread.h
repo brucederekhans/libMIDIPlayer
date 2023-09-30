@@ -17,6 +17,7 @@ protected:
 private:
 	char filename[MAX_PATH];
 	unsigned char isPaused;
+	unsigned char isStopRequested;
 	unsigned char volumePercentage;
 	unsigned long long selectedOuputDeviceIndex;
 	bool isSelectedOuputDeviceValid;

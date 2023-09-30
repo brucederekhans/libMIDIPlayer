@@ -23,6 +23,7 @@
 __fastcall TMIDIPlayingThread::TMIDIPlayingThread(char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
 	: TThread(CreateSuspended),
 	isPaused(0),
+	isStopRequested(0),
 	volumePercentage(AVolumePercentage),
 	selectedOuputDeviceIndex(0),
 	isSelectedOuputDeviceValid(false)
