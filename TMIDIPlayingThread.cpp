@@ -138,7 +138,6 @@ void __fastcall TMIDIPlayingThread::Execute()
 				HMIDIOUT hMIDIOut;
 				if(midiOutOpen(&hMIDIOut, static_cast<unsigned int>(this->selectedOuputDeviceIndex), 0, 0, 0) == MMSYSERR_NOERROR)
 				{
-					midi.isPlaying = 1;
 					midi.tempo = 1000;
 					midi.tickLength = midi.tempo * 1.0 / midi.countTicks;
 
@@ -388,8 +387,6 @@ void __fastcall TMIDIPlayingThread::Execute()
 						iTryClosing++;
 					}
 					hMIDIOut = nullptr;
-
-					midi.isPlaying = 0;
 				}
 
 				if(isTrackHeadersValid)
