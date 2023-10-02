@@ -13,6 +13,7 @@ public:
 	__fastcall TMIDIPlayingThread(char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended);
 	__fastcall ~TMIDIPlayingThread();
 	void __fastcall setIsPaused(unsigned char AIsPaused);
+	void __fastcall setIsStopRequested(unsigned char AIsStopRequested);
 protected:
 	void __fastcall Execute();
 private:

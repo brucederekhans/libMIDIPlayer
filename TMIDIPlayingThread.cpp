@@ -52,6 +52,11 @@ void __fastcall TMIDIPlayingThread::setIsPaused(unsigned char AIsPaused)
 	this->isPaused = AIsPaused;
 }
 //---------------------------------------------------------------------------
+void __fastcall TMIDIPlayingThread::setIsStopRequested(unsigned char AIsStopRequested)
+{
+	this->isStopRequested = AIsStopRequested;
+}
+//---------------------------------------------------------------------------
 void __fastcall TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----
