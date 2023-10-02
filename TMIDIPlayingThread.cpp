@@ -63,6 +63,14 @@ void __fastcall TMIDIPlayingThread::setIsStopRequested(unsigned char AIsStopRequ
 	}
 }
 //---------------------------------------------------------------------------
+void __fastcall TMIDIPlayingThread::setVolumePercentage(unsigned char AVolumePercentage)
+{
+	if(this->isSelectedOuputDeviceValid)
+	{
+		this->volumePercentage = AVolumePercentage;
+	}
+}
+//---------------------------------------------------------------------------
 void __fastcall TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----

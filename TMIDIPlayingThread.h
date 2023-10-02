@@ -14,6 +14,7 @@ public:
 	__fastcall ~TMIDIPlayingThread();
 	void __fastcall setIsPaused(unsigned char AIsPaused);
 	void __fastcall setIsStopRequested(unsigned char AIsStopRequested);
+	void __fastcall setVolumePercentage(unsigned char AVolumePercentage);
 protected:
 	void __fastcall Execute();
 private:
