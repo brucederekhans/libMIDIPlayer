@@ -154,6 +154,14 @@ void __fastcall TMIDIPlayingThread::Execute()
 				}
 				catch(int errCode)
 				{
+					if(errCode == -8)
+					{
+						unsigned short jTrack;
+						for(jTrack = iTrack; jTrack >= 0; jTrack--)
+						{
+							delete [](midiTrackHeaders[jTrack].data);
+						}
+					}
 					delete []midiTrackHeaders;
 				}
 
