@@ -113,9 +113,9 @@ void __fastcall TMIDIPlayingThread::Execute()
 
 				bool isTrackHeadersValid = false;
 				midiTrackHeaders = new TMIDITrackHeader[midi.countTracks];
+				unsigned short iTrack = 0;
 				try
 				{
-					unsigned short iTrack = 0;
 					while(!feof(pMIDIFile))
 					{
 						unsigned char t4Bytes[4];
