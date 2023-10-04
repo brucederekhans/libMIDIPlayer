@@ -414,7 +414,6 @@ void __fastcall TMIDIPlayingThread::Execute()
 						{
 							delete [](midiTrackHeaders[iTrack].data);
 						}
-						memset(&midiTrackHeaders[iTrack], 0, sizeof(TMIDITrackHeader));
 					}
 					delete []midiTrackHeaders;
 				}
