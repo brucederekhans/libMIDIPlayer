@@ -166,67 +166,67 @@ void __fastcall TMIDIPlayingThread::Execute()
 							tCurrentTime = getHighResolutionTime();
 							double nextTriggerTime = tCurrentTime + 1000;
 							unsigned char isAnyTrackEnabled = 0;
-							unsigned short iTrack;
-							for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
+							unsigned short jTrack;
+							for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 							{
-								if(midiTrackHeaders[iTrack].isEnabled)
+								if(midiTrackHeaders[jTrack].isEnabled)
 								{
 									isAnyTrackEnabled = 1;
-									if(midiTrackHeaders[iTrack].pData < (midiTrackHeaders[iTrack].data + midiTrackHeaders[iTrack].length))
+									if(midiTrackHeaders[jTrack].pData < (midiTrackHeaders[jTrack].data + midiTrackHeaders[jTrack].length))
 									{
-										if(midiTrackHeaders[iTrack].isReadOnce)
+										if(midiTrackHeaders[jTrack].isReadOnce)
 										{
-											midiTrackHeaders[iTrack].isReadOnce = 0;
-											midiTrackHeaders[iTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]) * midi.tickLength;
-											midiTrackHeaders[iTrack].triggerTime = tCurrentTime + midiTrackHeaders[iTrack].deltaTime;
+											midiTrackHeaders[jTrack].isReadOnce = 0;
+											midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
+											midiTrackHeaders[jTrack].triggerTime = tCurrentTime + midiTrackHeaders[jTrack].deltaTime;
 										}
 
-										while(tCurrentTime >= midiTrackHeaders[iTrack].triggerTime)
+										while(tCurrentTime >= midiTrackHeaders[jTrack].triggerTime)
 										{
 											midi.currentTime = tCurrentTime;
 
-											unsigned char command = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+											unsigned char command = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 											if(command < 128)
 											{
-												midiTrackHeaders[iTrack].pData--;
-												command = midiTrackHeaders[iTrack].lastCommand;
+												midiTrackHeaders[jTrack].pData--;
+												command = midiTrackHeaders[jTrack].lastCommand;
 											}
 											else
 											{
-												midiTrackHeaders[iTrack].lastCommand = command;
+												midiTrackHeaders[jTrack].lastCommand = command;
 											}
 
 											if(command == 0xFF)
 											{
-												command = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-												unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-												if(tLength <= (midiTrackHeaders[iTrack].pData - midiTrackHeaders[iTrack].data + midiTrackHeaders[iTrack].length))
+												command = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+												unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+												if(tLength <= (midiTrackHeaders[jTrack].pData - midiTrackHeaders[jTrack].data + midiTrackHeaders[jTrack].length))
 												{
 													if(command == 0x0)
 													{
-														midiTrackHeaders[iTrack].pData += 2;
+														midiTrackHeaders[jTrack].pData += 2;
 													}
 													else if(command <= 0x07)
 													{
-														midiTrackHeaders[iTrack].pData += tLength;
+														midiTrackHeaders[jTrack].pData += tLength;
 													}
 													else if(command == 0x20)
 													{
-														midiTrackHeaders[iTrack].pData++;
+														midiTrackHeaders[jTrack].pData++;
 													}
 													else if(command == 0x21)
 													{
-														midiTrackHeaders[iTrack].pData++;
+														midiTrackHeaders[jTrack].pData++;
 													}
 													else if(command == 0x2F)
 													{
-														midiTrackHeaders[iTrack].isEnabled = 0;
+														midiTrackHeaders[jTrack].isEnabled = 0;
 													}
 													else if(command == 0x51)
 													{
 														unsigned char t3Bytes[3];
-														memcpy(t3Bytes, midiTrackHeaders[iTrack].pData, 3);
-														midiTrackHeaders[iTrack].pData += 3;
+														memcpy(t3Bytes, midiTrackHeaders[jTrack].pData, 3);
+														midiTrackHeaders[jTrack].pData += 3;
 														double newTempo = ((t3Bytes[0] << 16) + (t3Bytes[1] << 8) + t3Bytes[2]) / 1000;
 														double orgTickLength = midi.tickLength;
 														midi.tickLength = newTempo / midi.countTicks;
@@ -243,23 +243,23 @@ void __fastcall TMIDIPlayingThread::Execute()
 													}
 													else if(command == 0x54)
 													{
-														midiTrackHeaders[iTrack].pData += 5;
+														midiTrackHeaders[jTrack].pData += 5;
 													}
 													else if(command == 0x58)
 													{
-														midiTrackHeaders[iTrack].pData += 4;
+														midiTrackHeaders[jTrack].pData += 4;
 													}
 													else if(command == 0x59)
 													{
-														midiTrackHeaders[iTrack].pData += 2;
+														midiTrackHeaders[jTrack].pData += 2;
 													}
 													else if(command == 0x7F)
 													{
-														midiTrackHeaders[iTrack].pData += tLength;
+														midiTrackHeaders[jTrack].pData += tLength;
 													}
 													else
 													{
-														midiTrackHeaders[iTrack].pData += tLength;
+														midiTrackHeaders[jTrack].pData += tLength;
 													}
 												}
 											}
@@ -269,41 +269,41 @@ void __fastcall TMIDIPlayingThread::Execute()
 												unsigned char loNybble = LO_NYBBLE(command);
 												if(hiNybble == 0x08)
 												{
-													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
 												}
 												else if(hiNybble == 0x09)
 												{
-													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													setNoteOnOff(1, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
 												}
 												else if(hiNybble == 0x0A)
 												{
-													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-													unsigned char touch = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+													unsigned char touch = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, key), MAKEWORD(touch, 0))));
 												}
 												else if(hiNybble == 0x0B)
 												{
-													unsigned char controller = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-													unsigned char controllerValue = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned char controller = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+													unsigned char controllerValue = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, controller), MAKEWORD(controllerValue, 0))));
 												}
 												else if(hiNybble == 0x0C)
 												{
-													unsigned char instrument = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned char instrument = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, instrument), MAKEWORD(0, 0))));
 												}
 												else if(hiNybble == 0x0D)
 												{
-													unsigned char pressure = readByteFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned char pressure = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, pressure), MAKEWORD(0, 0))));
 												}
 												else if(hiNybble == 0x0E)
 												{
-													unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
+													unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													unsigned char hiByte = HIBYTE(tUShort);
 													unsigned char loByte = LOBYTE(tUShort);
 													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, hiByte), MAKEWORD(loByte, 0))));
@@ -312,44 +312,44 @@ void __fastcall TMIDIPlayingThread::Execute()
 												{
 													if(loNybble == 0x02)
 													{
-														midiTrackHeaders[iTrack].pData += 2;
+														midiTrackHeaders[jTrack].pData += 2;
 													}
 													else if(loNybble == 0x03)
 													{
-														midiTrackHeaders[iTrack].pData++;
+														midiTrackHeaders[jTrack].pData++;
 													}
 													else if( (loNybble == 0x00) || (loNybble == 0x07))
 													{
-														unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]);
-														midiTrackHeaders[iTrack].pData += tLength;
+														unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														midiTrackHeaders[jTrack].pData += tLength;
 													}
 												}
 												else
 												{
-													midiTrackHeaders[iTrack].pData++;
+													midiTrackHeaders[jTrack].pData++;
 												}
 											}
 
-											if(!midiTrackHeaders[iTrack].isEnabled)
+											if(!midiTrackHeaders[jTrack].isEnabled)
 											{
 												break;
 											}
 
-											midiTrackHeaders[iTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[iTrack]) * midi.tickLength;
-											midiTrackHeaders[iTrack].triggerTime += midiTrackHeaders[iTrack].deltaTime;
+											midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
+											midiTrackHeaders[jTrack].triggerTime += midiTrackHeaders[jTrack].deltaTime;
 										}
 
-										if(midiTrackHeaders[iTrack].isEnabled)
+										if(midiTrackHeaders[jTrack].isEnabled)
 										{
-											if(midiTrackHeaders[iTrack].triggerTime < nextTriggerTime)
+											if(midiTrackHeaders[jTrack].triggerTime < nextTriggerTime)
 											{
-												nextTriggerTime = midiTrackHeaders[iTrack].triggerTime;
+												nextTriggerTime = midiTrackHeaders[jTrack].triggerTime;
 											}
 										}
 									}
 									else
 									{
-										midiTrackHeaders[iTrack].isEnabled = 0;
+										midiTrackHeaders[jTrack].isEnabled = 0;
 									}
 								}
 							}
@@ -376,9 +376,9 @@ void __fastcall TMIDIPlayingThread::Execute()
 								tCurrentTime = getHighResolutionTime();
 								nextTriggerTime += (tCurrentTime - tPausedTime);
 
-								for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
+								for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 								{
-									midiTrackHeaders[iTrack].triggerTime += (tCurrentTime - tPausedTime);
+									midiTrackHeaders[jTrack].triggerTime += (tCurrentTime - tPausedTime);
 								}
 							}
 
