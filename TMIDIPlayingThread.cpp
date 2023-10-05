@@ -406,13 +406,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 						hMIDIOut = nullptr;
 					}
 
-					unsigned short iTrack;
-					for(iTrack = 0; iTrack < midi.countTracks; iTrack++)
+					unsigned short jTrack;
+					for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 					{
-						midiTrackHeaders[iTrack].pData = nullptr;
-						if(midiTrackHeaders[iTrack].data)
+						midiTrackHeaders[jTrack].pData = nullptr;
+						if(midiTrackHeaders[jTrack].data)
 						{
-							delete [](midiTrackHeaders[iTrack].data);
+							delete [](midiTrackHeaders[jTrack].data);
 						}
 					}
 					delete []midiTrackHeaders;
