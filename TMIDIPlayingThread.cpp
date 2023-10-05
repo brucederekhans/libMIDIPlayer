@@ -231,13 +231,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 														double orgTickLength = midi.tickLength;
 														midi.tickLength = newTempo / midi.countTicks;
 
-														unsigned short jTrack;
-														for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
+														unsigned short kTrack;
+														for(kTrack = 0; kTrack < midi.countTracks; kTrack++)
 														{
-															if(midiTrackHeaders[jTrack].isEnabled)
+															if(midiTrackHeaders[kTrack].isEnabled)
 															{
-																midiTrackHeaders[jTrack].deltaTime = (midiTrackHeaders[jTrack].triggerTime - midi.currentTime) / orgTickLength * midi.tickLength;
-																midiTrackHeaders[jTrack].triggerTime = midi.currentTime + midiTrackHeaders[jTrack].deltaTime;
+																midiTrackHeaders[kTrack].deltaTime = (midiTrackHeaders[kTrack].triggerTime - midi.currentTime) / orgTickLength * midi.tickLength;
+																midiTrackHeaders[kTrack].triggerTime = midi.currentTime + midiTrackHeaders[kTrack].deltaTime;
 															}
 														}
 													}
