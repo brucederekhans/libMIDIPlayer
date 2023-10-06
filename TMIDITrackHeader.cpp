@@ -6,7 +6,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 //---------------------------------------------------------------------------
-unsigned int readVLQFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
+unsigned int readVLQFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
 {
 	unsigned char * p = pMIDITrackHeader->pData;
 	unsigned int vlq = *p;
@@ -29,14 +29,14 @@ unsigned int readVLQFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
 	return vlq;
 }
 //---------------------------------------------------------------------------
-unsigned char readByteFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
+unsigned char readByteFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
 {
 	unsigned char data = *(pMIDITrackHeader->pData);
 	pMIDITrackHeader->pData++;
 	return data;
 }
 //---------------------------------------------------------------------------
-unsigned short readUShortFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader)
+unsigned short readUShortFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
 {
 	unsigned char high = readByteFromMIDITrackHeader(pMIDITrackHeader);
 	unsigned char low = readByteFromMIDITrackHeader(pMIDITrackHeader);

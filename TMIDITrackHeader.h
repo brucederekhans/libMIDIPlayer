@@ -14,8 +14,8 @@ struct TMIDITrackHeader{
 	unsigned char lastCommand;
 };
 //---------------------------------------------------------------------------
-unsigned int readVLQFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader);
-unsigned char readByteFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader);
-unsigned short readUShortFromMIDITrackHeader(QMIDITrackHeader * pMIDITrackHeader);
+unsigned int readVLQFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader);
+unsigned char readByteFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader);
+unsigned short readUShortFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader);
 //---------------------------------------------------------------------------
 #endif
