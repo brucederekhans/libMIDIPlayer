@@ -422,7 +422,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					if(errCode == -8)
 					{
 						unsigned short jTrack;
-						for(jTrack = iTrack; jTrack >= 0; jTrack--)
+						for(jTrack = 0; jTrack <= iTrack; jTrack++)
 						{
 							delete [](midiTrackHeaders[jTrack].data);
 						}
