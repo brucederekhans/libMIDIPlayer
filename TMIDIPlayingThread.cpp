@@ -407,7 +407,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					}
 
 					unsigned short jTrack;
-					for(jTrack = (midi.countTracks - 1); jTrack >= 0; jTrack--)
+					for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 					{
 						midiTrackHeaders[jTrack].pData = nullptr;
 						if(midiTrackHeaders[jTrack].data)
