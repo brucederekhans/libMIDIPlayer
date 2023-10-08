@@ -19,7 +19,7 @@ extern const char MTrk[5];
 //---------------------------------------------------------------------------
 #define HI_NYBBLE(byte) (((byte) & 0xF0) >> 4)
 #define LO_NYBBLE(byte) ((byte) & 0x0F)
-#define MAKEBYTE(hiNybble, loNybble) (((hiNybble) << 4) | (loNybble))
+#define MAKEBYTE(loNybble, hiNybble) (((hiNybble) << 4) | (loNybble))
 //---------------------------------------------------------------------------
 unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile);
 unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile);
