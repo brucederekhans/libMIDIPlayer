@@ -432,6 +432,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 			}
 			catch(int errCode)
 			{
+				(void)errCode;
 				fclose(pMIDIFile);
 			}
 		}
