@@ -85,13 +85,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 			TMIDITrackHeader * midiTrackHeaders;
 			try
 			{
-				unsigned char t4Bytes[4];
-				if(fread(t4Bytes, 1, 4, pMIDIFile) != 4)
+				unsigned char t4BytesBufferMThd[4];
+				if(fread(t4BytesBufferMThd, 1, 4, pMIDIFile) != 4)
 				{
 					throw -1;
 				}
 
-				if(memcmp(t4Bytes, MThd, 4))
+				if(memcmp(t4BytesBufferMThd, MThd, 4))
 				{
 					throw -2;
 				}
