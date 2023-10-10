@@ -428,6 +428,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 						}
 					}
 					delete []midiTrackHeaders;
+					throw errCode;
 				}
 			}
 			catch(int errCode)
