@@ -318,7 +318,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 													{
 														midiTrackHeaders[jTrack].pData++;
 													}
-													else if( (loNybble == 0x00) || (loNybble == 0x07))
+													else if( (loNybble == 0x00) || (loNybble == 0x07) )
 													{
 														unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 														midiTrackHeaders[jTrack].pData += tLength;
@@ -419,7 +419,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 				}
 				catch(int errCode)
 				{
-					if(errCode == -7)
+					if( (errCode == -6) || (errCode == -7) )
 					{
 						unsigned short jTrack;
 						for(jTrack = 0; jTrack < iTrack; jTrack++)
