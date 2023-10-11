@@ -330,13 +330,13 @@ void __fastcall TMIDIPlayingThread::Execute()
 												}
 											}
 
+											midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
+											midiTrackHeaders[jTrack].triggerTime += midiTrackHeaders[jTrack].deltaTime;
+
 											if(!midiTrackHeaders[jTrack].isEnabled)
 											{
 												break;
 											}
-
-											midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
-											midiTrackHeaders[jTrack].triggerTime += midiTrackHeaders[jTrack].deltaTime;
 										}
 
 										if(midiTrackHeaders[jTrack].isEnabled)
