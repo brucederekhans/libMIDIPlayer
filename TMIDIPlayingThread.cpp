@@ -60,6 +60,11 @@ void __fastcall TMIDIPlayingThread::setIsPaused(unsigned char AIsPaused)
 	}
 }
 //---------------------------------------------------------------------------
+unsigned char __fastcall TMIDIPlayingThread::getIsStopRequested()
+{
+	return this->isStopRequested;
+}
+//---------------------------------------------------------------------------
 void __fastcall TMIDIPlayingThread::setIsStopRequested(unsigned char AIsStopRequested)
 {
 	if(this->isSelectedOuputDeviceValid)
