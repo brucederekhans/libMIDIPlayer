@@ -16,6 +16,7 @@ public:
 	void __fastcall setIsPaused(unsigned char AIsPaused);
 	unsigned char __fastcall getIsStopRequested();
 	void __fastcall setIsStopRequested(unsigned char AIsStopRequested);
+	unsigned char __fastcall getVolumePercentage();
 	void __fastcall setVolumePercentage(unsigned char AVolumePercentage);
 protected:
 	void __fastcall Execute();
