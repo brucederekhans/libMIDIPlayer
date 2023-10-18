@@ -106,7 +106,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 					throw -1;
 				}
 
-				if(memcmp(t4BytesBufferMThd, MThd, 4))
+				if(memcmp(t4BytesBufferMThd, MIDI::MThd, 4))
 				{
 					throw -2;
 				}
@@ -135,7 +135,7 @@ void __fastcall TMIDIPlayingThread::Execute()
 						unsigned char t4BytesBufferMTrk[4];
 						if(fread(t4BytesBufferMTrk, 1, 4, pMIDIFile) == 4)
 						{
-							if(memcmp(t4BytesBufferMTrk, MTrk, 4))
+							if(memcmp(t4BytesBufferMTrk, MIDI::MTrk, 4))
 							{
 								throw -6;
 							}
