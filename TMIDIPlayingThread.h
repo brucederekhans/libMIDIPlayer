@@ -7,26 +7,28 @@
 #include "TMIDI.h"
 #include "TMIDITrackHeader.h"
 //---------------------------------------------------------------------------
-class TMIDIPlayingThread : public TThread
-{
-public:
-	__fastcall TMIDIPlayingThread(const char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended);
-	__fastcall ~TMIDIPlayingThread();
-	unsigned char __fastcall getIsPaused();
-	void __fastcall setIsPaused(unsigned char AIsPaused);
-	unsigned char __fastcall getIsStopRequested();
-	void __fastcall setIsStopRequested(unsigned char AIsStopRequested);
-	unsigned char __fastcall getVolumePercentage();
-	void __fastcall setVolumePercentage(unsigned char AVolumePercentage);
-protected:
-	void __fastcall Execute();
-private:
-	char filename[MAX_PATH];
-	unsigned char isPaused;
-	unsigned char isStopRequested;
-	unsigned char volumePercentage;
-	unsigned long long selectedOuputDeviceIndex;
-	bool isSelectedOuputDeviceValid;
-};
+namespace MIDI{
+	class TMIDIPlayingThread : public TThread
+	{
+	public:
+		__fastcall TMIDIPlayingThread(const char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended);
+		__fastcall ~TMIDIPlayingThread();
+		unsigned char __fastcall getIsPaused();
+		void __fastcall setIsPaused(unsigned char AIsPaused);
+		unsigned char __fastcall getIsStopRequested();
+		void __fastcall setIsStopRequested(unsigned char AIsStopRequested);
+		unsigned char __fastcall getVolumePercentage();
+		void __fastcall setVolumePercentage(unsigned char AVolumePercentage);
+	protected:
+		void __fastcall Execute();
+	private:
+		char filename[MAX_PATH];
+		unsigned char isPaused;
+		unsigned char isStopRequested;
+		unsigned char volumePercentage;
+		unsigned long long selectedOuputDeviceIndex;
+		bool isSelectedOuputDeviceValid;
+	};
+}
 //---------------------------------------------------------------------------
 #endif
