@@ -20,7 +20,7 @@
 //        Form1->Caption = "Updated in a thread";
 //      }
 //---------------------------------------------------------------------------
-__fastcall MIDI::TMIDIPlayingThread::TMIDIPlayingThread(const char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
+__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
 	: TThread(CreateSuspended),
 	isPaused(0),
 	isStopRequested(0),
@@ -42,17 +42,17 @@ __fastcall MIDI::TMIDIPlayingThread::TMIDIPlayingThread(const char * pFilename, 
 	}
 }
 //---------------------------------------------------------------------------
-__fastcall MIDI::TMIDIPlayingThread::~TMIDIPlayingThread()
+__fastcall TMIDI::TMIDIPlayingThread::~TMIDIPlayingThread()
 {
 	//
 }
 //---------------------------------------------------------------------------
-unsigned char __fastcall MIDI::TMIDIPlayingThread::getIsPaused()
+unsigned char __fastcall TMIDI::TMIDIPlayingThread::getIsPaused()
 {
 	return this->isPaused;
 }
 //---------------------------------------------------------------------------
-void __fastcall MIDI::TMIDIPlayingThread::setIsPaused(unsigned char AIsPaused)
+void __fastcall TMIDI::TMIDIPlayingThread::setIsPaused(unsigned char AIsPaused)
 {
 	if(this->isSelectedOuputDeviceValid)
 	{
@@ -60,12 +60,12 @@ void __fastcall MIDI::TMIDIPlayingThread::setIsPaused(unsigned char AIsPaused)
 	}
 }
 //---------------------------------------------------------------------------
-unsigned char __fastcall MIDI::TMIDIPlayingThread::getIsStopRequested()
+unsigned char __fastcall TMIDI::TMIDIPlayingThread::getIsStopRequested()
 {
 	return this->isStopRequested;
 }
 //---------------------------------------------------------------------------
-void __fastcall MIDI::TMIDIPlayingThread::setIsStopRequested(unsigned char AIsStopRequested)
+void __fastcall TMIDI::TMIDIPlayingThread::setIsStopRequested(unsigned char AIsStopRequested)
 {
 	if(this->isSelectedOuputDeviceValid)
 	{
@@ -73,12 +73,12 @@ void __fastcall MIDI::TMIDIPlayingThread::setIsStopRequested(unsigned char AIsSt
 	}
 }
 //---------------------------------------------------------------------------
-unsigned char __fastcall MIDI::TMIDIPlayingThread::getVolumePercentage()
+unsigned char __fastcall TMIDI::TMIDIPlayingThread::getVolumePercentage()
 {
 	return this->volumePercentage;
 }
 //---------------------------------------------------------------------------
-void __fastcall MIDI::TMIDIPlayingThread::setVolumePercentage(unsigned char AVolumePercentage)
+void __fastcall TMIDI::TMIDIPlayingThread::setVolumePercentage(unsigned char AVolumePercentage)
 {
 	if(this->isSelectedOuputDeviceValid)
 	{
@@ -86,7 +86,7 @@ void __fastcall MIDI::TMIDIPlayingThread::setVolumePercentage(unsigned char AVol
 	}
 }
 //---------------------------------------------------------------------------
-void __fastcall MIDI::TMIDIPlayingThread::Execute()
+void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----
 	if(this->isSelectedOuputDeviceValid)

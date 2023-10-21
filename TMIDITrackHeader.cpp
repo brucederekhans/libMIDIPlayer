@@ -6,7 +6,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 //---------------------------------------------------------------------------
-unsigned int MIDI::readVLQFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
+unsigned int TMIDI::readVLQFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
 {
 	unsigned char * p = pMIDITrackHeader->pData;
 	unsigned int vlq = *p;
@@ -29,14 +29,14 @@ unsigned int MIDI::readVLQFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeade
 	return vlq;
 }
 //---------------------------------------------------------------------------
-unsigned char MIDI::readByteFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
+unsigned char TMIDI::readByteFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
 {
 	unsigned char data = *(pMIDITrackHeader->pData);
 	pMIDITrackHeader->pData++;
 	return data;
 }
 //---------------------------------------------------------------------------
-unsigned short MIDI::readUShortFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
+unsigned short TMIDI::readUShortFromMIDITrackHeader(TMIDITrackHeader * pMIDITrackHeader)
 {
 	unsigned char high = readByteFromMIDITrackHeader(pMIDITrackHeader);
 	unsigned char low = readByteFromMIDITrackHeader(pMIDITrackHeader);

@@ -7,7 +7,7 @@
 #include "TMIDI.h"
 #include "TMIDITrackHeader.h"
 //---------------------------------------------------------------------------
-namespace MIDI{
+namespace TMIDI{
 	class TMIDIPlayingThread : public TThread
 	{
 	public:

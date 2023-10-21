@@ -3,7 +3,7 @@
 //---------------------------------------------------------------------------
 #include <windows.h>
 //---------------------------------------------------------------------------
-namespace MIDI{
+namespace TMIDI{
 	struct TMIDITrackHeader{
 		unsigned char isEnabled;
 		unsigned char isReadOnce;
