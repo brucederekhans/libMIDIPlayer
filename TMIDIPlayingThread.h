@@ -4,6 +4,7 @@
 #define TMIDIPlayingThreadH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
+#include <algorithm>
 #include "TMIDI.h"
 #include "TMIDITrackHeader.h"
 //---------------------------------------------------------------------------
