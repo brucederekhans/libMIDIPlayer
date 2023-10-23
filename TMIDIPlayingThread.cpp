@@ -29,6 +29,7 @@ __fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const char * pFilename,
 	isSelectedOuputDeviceValid(false)
 {
 	strcpy(this->filename, pFilename);
+	this->volumePercentage = std::min(this->volumePercentage, static_cast<unsigned char>(100));
 	unsigned long long i, countMIDIOutDevices = midiOutGetNumDevs();
 	for(i = 0; i < countMIDIOutDevices; i++)
 	{
