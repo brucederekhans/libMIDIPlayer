@@ -20,7 +20,7 @@
 //        Form1->Caption = "Updated in a thread";
 //      }
 //---------------------------------------------------------------------------
-__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
+__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage, bool CreateSuspended)
 	: TThread(CreateSuspended),
 	isPaused(0),
 	isStopRequested(0),
@@ -28,7 +28,7 @@ __fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const char * pFilename,
 	selectedOuputDeviceIndex(0),
 	isSelectedOuputDeviceValid(false)
 {
-	strcpy(this->filename, pFilename);
+	wcscpy(this->filename, pFilename);
 	this->volumePercentage = std::min(this->volumePercentage, static_cast<unsigned char>(100));
 	unsigned long long i, countMIDIOutDevices = midiOutGetNumDevs();
 	for(i = 0; i < countMIDIOutDevices; i++)
@@ -93,7 +93,7 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 	if(this->isSelectedOuputDeviceValid)
 	{
 		FILE * pMIDIFile;
-		fopen_s(&pMIDIFile, this->filename, "rb");
+		_wfopen_s(&pMIDIFile, this->filename, L"rb");
 		if(pMIDIFile != nullptr)
 		{
 			TMIDI midi;

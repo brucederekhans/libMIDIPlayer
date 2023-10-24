@@ -12,7 +12,7 @@ namespace TMIDI{
 	class TMIDIPlayingThread : public TThread
 	{
 	public:
-		__fastcall TMIDIPlayingThread(const char * pFilename, unsigned char AVolumePercentage, bool CreateSuspended);
+		__fastcall TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage, bool CreateSuspended);
 		__fastcall ~TMIDIPlayingThread();
 		unsigned char __fastcall getIsPaused();
 		void __fastcall setIsPaused(unsigned char AIsPaused);
@@ -23,7 +23,7 @@ namespace TMIDI{
 	protected:
 		void __fastcall Execute();
 	private:
-		char filename[MAX_PATH];
+		wchar_t filename[MAX_PATH];
 		unsigned char isPaused;
 		unsigned char isStopRequested;
 		unsigned char volumePercentage;
