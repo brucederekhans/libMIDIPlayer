@@ -20,7 +20,7 @@
 //        Form1->Caption = "Updated in a thread";
 //      }
 //---------------------------------------------------------------------------
-__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage)
+__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage, TNotifyEvent AOnTerminate)
 	: TThread(true),
 	isPaused(0),
 	isStopRequested(0),
@@ -30,6 +30,7 @@ __fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const wchar_t * pFilena
 {
 	wcscpy(this->filename, pFilename);
 	this->volumePercentage = std::min(this->volumePercentage, static_cast<unsigned char>(100));
+	this->OnTerminate = AOnTerminate;
 	unsigned long long i, countMIDIOutDevices = midiOutGetNumDevs();
 	for(i = 0; i < countMIDIOutDevices; i++)
 	{
