@@ -21,7 +21,7 @@ namespace TMIDI{
 	unsigned long long readUShortFromMIDIFile(unsigned short * pDst, FILE * pMIDIFile);
 	unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile);
 	double getHighResolutionTime();
-	void setNoteOnOff(unsigned char isOn, unsigned char note, unsigned char velocity, unsigned char velocityPercentage, unsigned char channelIndex, TMIDI * pMIDI, HMIDIOUT * pHMIDIOut);
+	void setNoteOnOff(unsigned char isOn, unsigned char note, unsigned char velocity, unsigned char velocityPercentage, unsigned char channelIndex, HMIDIOUT * pHMIDIOut);
 	void setAllNotesOff(TMIDI * pMIDI, HMIDIOUT * pHMIDIOut);
 }
 //---------------------------------------------------------------------------
