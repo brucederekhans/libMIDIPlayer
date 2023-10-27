@@ -80,8 +80,6 @@ void TMIDI::setAllNotesOff(TMIDI * pMIDI, HMIDIOUT * pHMIDIOut)
 	unsigned short channel;
 	for(channel = 0; channel < 16; channel++)
 	{
-		memset(&(pMIDI->channels[channel]), 0, sizeof(pMIDI->channels[channel]));
-
 		if(*pHMIDIOut)
 		{
 			midiOutShortMsg(*pHMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(0xB0 + channel, 120), MAKEWORD(0, 0))));
