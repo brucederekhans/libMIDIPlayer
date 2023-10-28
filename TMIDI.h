@@ -22,7 +22,7 @@ namespace TMIDI{
 	unsigned long long readUIntFromMIDIFile(unsigned int * pDst, FILE * pMIDIFile);
 	double getHighResolutionTime();
 	void setNoteOnOff(unsigned char isOn, unsigned char note, unsigned char velocity, unsigned char velocityPercentage, unsigned char channelIndex, HMIDIOUT * pHMIDIOut);
-	void setAllNotesOff(TMIDI * pMIDI, HMIDIOUT * pHMIDIOut);
+	void setAllNotesOff(HMIDIOUT * pHMIDIOut);
 }
 //---------------------------------------------------------------------------
 #define HI_NYBBLE(byte) (((byte) & 0xF0) >> 4)

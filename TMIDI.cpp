@@ -75,7 +75,7 @@ void TMIDI::setNoteOnOff(unsigned char isOn, unsigned char note, unsigned char v
 	}
 }
 //---------------------------------------------------------------------------
-void TMIDI::setAllNotesOff(TMIDI * pMIDI, HMIDIOUT * pHMIDIOut)
+void TMIDI::setAllNotesOff(HMIDIOUT * pHMIDIOut)
 {
 	unsigned short channel;
 	for(channel = 0; channel < 16; channel++)
