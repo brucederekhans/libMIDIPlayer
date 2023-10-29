@@ -288,13 +288,13 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 												{
 													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
+													setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &hMIDIOut);
 												}
 												else if(hiNybble == 0x09)
 												{
 													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
 													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													setNoteOnOff(1, key, velocity, this->volumePercentage, loNybble, &midi, &hMIDIOut);
+													setNoteOnOff(1, key, velocity, this->volumePercentage, loNybble, &hMIDIOut);
 												}
 												else if(hiNybble == 0x0A)
 												{
