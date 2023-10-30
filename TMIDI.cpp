@@ -67,10 +67,9 @@ double TMIDI::getHighResolutionTime()
 //---------------------------------------------------------------------------
 void TMIDI::setNoteOnOff(unsigned char isOn, unsigned char note, unsigned char velocity, unsigned char velocityPercentage, unsigned char channelIndex, HMIDIOUT * pHMIDIOut)
 {
-	velocity = static_cast<unsigned char>(velocity * velocityPercentage / 100.0);
-
 	if(*pHMIDIOut)
 	{
+		velocity = static_cast<unsigned char>(velocity * velocityPercentage / 100.0);
 		midiOutShortMsg(*pHMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(MAKEBYTE(channelIndex, (isOn ? 9 : 8)), note), MAKEWORD(velocity, 0))));
 	}
 }
