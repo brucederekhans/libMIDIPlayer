@@ -369,7 +369,7 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 
 							if(this->isPaused)
 							{
-								setAllNotesOff(&midi, &hMIDIOut);
+								setAllNotesOff(&hMIDIOut);
 								double tPausedTime = tCurrentTime;
 								while(true)
 								{
@@ -406,7 +406,7 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 							}
 						}
 
-						setAllNotesOff(&midi, &hMIDIOut);
+						setAllNotesOff(&hMIDIOut);
 						Sleep(10);
 						midiOutReset(hMIDIOut);
 						unsigned short iTryClosing = 0;
