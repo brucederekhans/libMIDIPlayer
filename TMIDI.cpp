@@ -76,10 +76,10 @@ void TMIDI::setNoteOnOff(unsigned char isOn, unsigned char note, unsigned char v
 //---------------------------------------------------------------------------
 void TMIDI::setAllNotesOff(HMIDIOUT * pHMIDIOut)
 {
-	unsigned short channel;
-	for(channel = 0; channel < 16; channel++)
+	if(*pHMIDIOut)
 	{
-		if(*pHMIDIOut)
+		unsigned short channel;
+		for(channel = 0; channel < 16; channel++)
 		{
 			midiOutShortMsg(*pHMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(0xB0 + channel, 120), MAKEWORD(0, 0))));
 			midiOutShortMsg(*pHMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(0xB0 + channel, 121), MAKEWORD(0, 0))));
