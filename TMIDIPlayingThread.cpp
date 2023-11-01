@@ -174,8 +174,9 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 					{
 						midi.tempo = 1000;
 						midi.tickLength = midi.tempo * 1.0 / midi.countTicks;
-
 						midi.currentTime = getHighResolutionTime();
+
+						unsigned short jTrack;
 
 						double tCurrentTime;
 						while(!this->isStopRequested)
@@ -183,7 +184,6 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 							tCurrentTime = getHighResolutionTime();
 							double nextTriggerTime = tCurrentTime + 10;
 							unsigned char isAnyTrackEnabled = 0;
-							unsigned short jTrack;
 							for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 							{
 								if(midiTrackHeaders[jTrack].isEnabled)
