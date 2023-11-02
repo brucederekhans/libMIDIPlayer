@@ -24,6 +24,7 @@ namespace TMIDI{
 		void __fastcall Execute();
 	private:
 		wchar_t filename[MAX_PATH];
+		unsigned char isLoop;
 		unsigned char isPaused;
 		unsigned char isStopRequested;
 		unsigned char volumePercentage;
