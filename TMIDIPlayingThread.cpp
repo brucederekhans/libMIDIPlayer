@@ -20,8 +20,9 @@
 //        Form1->Caption = "Updated in a thread";
 //      }
 //---------------------------------------------------------------------------
-__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage, TNotifyEvent AOnTerminate)
+__fastcall TMIDI::TMIDIPlayingThread::TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage, unsigned char AIsLoop, TNotifyEvent AOnTerminate)
 	: TThread(true),
+	isLoop(AIsLoop),
 	isPaused(0),
 	isStopRequested(0),
 	volumePercentage(AVolumePercentage),
