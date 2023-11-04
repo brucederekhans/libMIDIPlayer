@@ -165,248 +165,251 @@ void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 					HMIDIOUT hMIDIOut;
 					if(midiOutOpen(&hMIDIOut, static_cast<unsigned int>(this->selectedOuputDeviceIndex), 0, 0, 0) == MMSYSERR_NOERROR)
 					{
-						midi.tempo = 1000;
-						midi.tickLength = midi.tempo * 1.0 / midi.countTicks;
-						midi.currentTime = getHighResolutionTime();
-
-						unsigned short jTrack;
-						for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
+						do
 						{
-							midiTrackHeaders[jTrack].isEnabled = 1;
-							midiTrackHeaders[jTrack].isReadOnce = 0;
-							midiTrackHeaders[jTrack].pData = midiTrackHeaders[jTrack].data;
-							midiTrackHeaders[jTrack].deltaTime = 0;
-							midiTrackHeaders[jTrack].triggerTime = 0;
-							midiTrackHeaders[jTrack].lastCommand = 0;
-						}
+							midi.tempo = 1000;
+							midi.tickLength = midi.tempo * 1.0 / midi.countTicks;
+							midi.currentTime = getHighResolutionTime();
 
-						double tCurrentTime;
-						while(!this->isStopRequested)
-						{
-							tCurrentTime = getHighResolutionTime();
-							double nextTriggerTime = tCurrentTime + 10;
-							unsigned char isAnyTrackEnabled = 0;
+							unsigned short jTrack;
 							for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 							{
-								if(midiTrackHeaders[jTrack].isEnabled)
+								midiTrackHeaders[jTrack].isEnabled = 1;
+								midiTrackHeaders[jTrack].isReadOnce = 0;
+								midiTrackHeaders[jTrack].pData = midiTrackHeaders[jTrack].data;
+								midiTrackHeaders[jTrack].deltaTime = 0;
+								midiTrackHeaders[jTrack].triggerTime = 0;
+								midiTrackHeaders[jTrack].lastCommand = 0;
+							}
+
+							double tCurrentTime;
+							while(!this->isStopRequested)
+							{
+								tCurrentTime = getHighResolutionTime();
+								double nextTriggerTime = tCurrentTime + 10;
+								unsigned char isAnyTrackEnabled = 0;
+								for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
 								{
-									isAnyTrackEnabled = 1;
-									if(midiTrackHeaders[jTrack].pData < (midiTrackHeaders[jTrack].data + midiTrackHeaders[jTrack].length))
+									if(midiTrackHeaders[jTrack].isEnabled)
 									{
-										if(midiTrackHeaders[jTrack].isReadOnce == 0)
+										isAnyTrackEnabled = 1;
+										if(midiTrackHeaders[jTrack].pData < (midiTrackHeaders[jTrack].data + midiTrackHeaders[jTrack].length))
 										{
-											midiTrackHeaders[jTrack].isReadOnce = 1;
-											midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
-											midiTrackHeaders[jTrack].triggerTime = tCurrentTime + midiTrackHeaders[jTrack].deltaTime;
-										}
-
-										while( (tCurrentTime >= midiTrackHeaders[jTrack].triggerTime) && (midiTrackHeaders[jTrack].isEnabled) )
-										{
-											midi.currentTime = tCurrentTime;
-
-											unsigned char command = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-											if(command < 128)
+											if(midiTrackHeaders[jTrack].isReadOnce == 0)
 											{
-												midiTrackHeaders[jTrack].pData--;
-												command = midiTrackHeaders[jTrack].lastCommand;
-											}
-											else
-											{
-												midiTrackHeaders[jTrack].lastCommand = command;
+												midiTrackHeaders[jTrack].isReadOnce = 1;
+												midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
+												midiTrackHeaders[jTrack].triggerTime = tCurrentTime + midiTrackHeaders[jTrack].deltaTime;
 											}
 
-											if(command == 0xFF)
+											while( (tCurrentTime >= midiTrackHeaders[jTrack].triggerTime) && (midiTrackHeaders[jTrack].isEnabled) )
 											{
-												command = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-												unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-												if(tLength <= (midiTrackHeaders[jTrack].pData - midiTrackHeaders[jTrack].data + midiTrackHeaders[jTrack].length))
+												midi.currentTime = tCurrentTime;
+
+												unsigned char command = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+												if(command < 128)
 												{
-													if(command == 0x0)
-													{
-														midiTrackHeaders[jTrack].pData += 2;
-													}
-													else if(command <= 0x07)
-													{
-														midiTrackHeaders[jTrack].pData += tLength;
-													}
-													else if(command == 0x20)
-													{
-														midiTrackHeaders[jTrack].pData++;
-													}
-													else if(command == 0x21)
-													{
-														midiTrackHeaders[jTrack].pData++;
-													}
-													else if(command == 0x2F)
-													{
-														midiTrackHeaders[jTrack].isEnabled = 0;
-													}
-													else if(command == 0x51)
-													{
-														unsigned char t3Bytes[3];
-														memcpy(t3Bytes, midiTrackHeaders[jTrack].pData, 3);
-														midiTrackHeaders[jTrack].pData += 3;
-														double newTempo = ((t3Bytes[0] << 16) + (t3Bytes[1] << 8) + t3Bytes[2]) / 1000;
-														double orgTickLength = midi.tickLength;
-														midi.tickLength = newTempo / midi.countTicks;
+													midiTrackHeaders[jTrack].pData--;
+													command = midiTrackHeaders[jTrack].lastCommand;
+												}
+												else
+												{
+													midiTrackHeaders[jTrack].lastCommand = command;
+												}
 
-														unsigned short kTrack;
-														for(kTrack = 0; kTrack < midi.countTracks; kTrack++)
+												if(command == 0xFF)
+												{
+													command = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+													unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+													if(tLength <= (midiTrackHeaders[jTrack].pData - midiTrackHeaders[jTrack].data + midiTrackHeaders[jTrack].length))
+													{
+														if(command == 0x0)
 														{
-															if(midiTrackHeaders[kTrack].isEnabled)
+															midiTrackHeaders[jTrack].pData += 2;
+														}
+														else if(command <= 0x07)
+														{
+															midiTrackHeaders[jTrack].pData += tLength;
+														}
+														else if(command == 0x20)
+														{
+															midiTrackHeaders[jTrack].pData++;
+														}
+														else if(command == 0x21)
+														{
+															midiTrackHeaders[jTrack].pData++;
+														}
+														else if(command == 0x2F)
+														{
+															midiTrackHeaders[jTrack].isEnabled = 0;
+														}
+														else if(command == 0x51)
+														{
+															unsigned char t3Bytes[3];
+															memcpy(t3Bytes, midiTrackHeaders[jTrack].pData, 3);
+															midiTrackHeaders[jTrack].pData += 3;
+															double newTempo = ((t3Bytes[0] << 16) + (t3Bytes[1] << 8) + t3Bytes[2]) / 1000;
+															double orgTickLength = midi.tickLength;
+															midi.tickLength = newTempo / midi.countTicks;
+
+															unsigned short kTrack;
+															for(kTrack = 0; kTrack < midi.countTracks; kTrack++)
 															{
-																midiTrackHeaders[kTrack].deltaTime = (midiTrackHeaders[kTrack].triggerTime - midi.currentTime) / orgTickLength * midi.tickLength;
-																midiTrackHeaders[kTrack].triggerTime = midi.currentTime + midiTrackHeaders[kTrack].deltaTime;
+																if(midiTrackHeaders[kTrack].isEnabled)
+																{
+																	midiTrackHeaders[kTrack].deltaTime = (midiTrackHeaders[kTrack].triggerTime - midi.currentTime) / orgTickLength * midi.tickLength;
+																	midiTrackHeaders[kTrack].triggerTime = midi.currentTime + midiTrackHeaders[kTrack].deltaTime;
+																}
 															}
 														}
-													}
-													else if(command == 0x54)
-													{
-														midiTrackHeaders[jTrack].pData += 5;
-													}
-													else if(command == 0x58)
-													{
-														midiTrackHeaders[jTrack].pData += 4;
-													}
-													else if(command == 0x59)
-													{
-														midiTrackHeaders[jTrack].pData += 2;
-													}
-													else if(command == 0x7F)
-													{
-														midiTrackHeaders[jTrack].pData += tLength;
-													}
-													else
-													{
-														midiTrackHeaders[jTrack].pData += tLength;
-													}
-												}
-											}
-											else
-											{
-												unsigned char hiNybble = HI_NYBBLE(command);
-												unsigned char loNybble = LO_NYBBLE(command);
-												if(hiNybble == 0x08)
-												{
-													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &hMIDIOut);
-												}
-												else if(hiNybble == 0x09)
-												{
-													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													setNoteOnOff(1, key, velocity, this->volumePercentage, loNybble, &hMIDIOut);
-												}
-												else if(hiNybble == 0x0A)
-												{
-													unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													unsigned char touch = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, key), MAKEWORD(touch, 0))));
-												}
-												else if(hiNybble == 0x0B)
-												{
-													unsigned char controller = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													unsigned char controllerValue = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, controller), MAKEWORD(controllerValue, 0))));
-												}
-												else if(hiNybble == 0x0C)
-												{
-													unsigned char instrument = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, instrument), MAKEWORD(0, 0))));
-												}
-												else if(hiNybble == 0x0D)
-												{
-													unsigned char pressure = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, pressure), MAKEWORD(0, 0))));
-												}
-												else if(hiNybble == 0x0E)
-												{
-													unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-													unsigned char hiByte = HIBYTE(tUShort);
-													unsigned char loByte = LOBYTE(tUShort);
-													midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, hiByte), MAKEWORD(loByte, 0))));
-												}
-												else if(hiNybble == 0x0F)
-												{
-													if(loNybble == 0x02)
-													{
-														midiTrackHeaders[jTrack].pData += 2;
-													}
-													else if(loNybble == 0x03)
-													{
-														midiTrackHeaders[jTrack].pData++;
-													}
-													else if( (loNybble == 0x00) || (loNybble == 0x07) )
-													{
-														unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
-														midiTrackHeaders[jTrack].pData += tLength;
+														else if(command == 0x54)
+														{
+															midiTrackHeaders[jTrack].pData += 5;
+														}
+														else if(command == 0x58)
+														{
+															midiTrackHeaders[jTrack].pData += 4;
+														}
+														else if(command == 0x59)
+														{
+															midiTrackHeaders[jTrack].pData += 2;
+														}
+														else if(command == 0x7F)
+														{
+															midiTrackHeaders[jTrack].pData += tLength;
+														}
+														else
+														{
+															midiTrackHeaders[jTrack].pData += tLength;
+														}
 													}
 												}
 												else
 												{
-													midiTrackHeaders[jTrack].pData++;
+													unsigned char hiNybble = HI_NYBBLE(command);
+													unsigned char loNybble = LO_NYBBLE(command);
+													if(hiNybble == 0x08)
+													{
+														unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														setNoteOnOff(0, key, velocity, this->volumePercentage, loNybble, &hMIDIOut);
+													}
+													else if(hiNybble == 0x09)
+													{
+														unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														unsigned char velocity = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														setNoteOnOff(1, key, velocity, this->volumePercentage, loNybble, &hMIDIOut);
+													}
+													else if(hiNybble == 0x0A)
+													{
+														unsigned char key = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														unsigned char touch = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, key), MAKEWORD(touch, 0))));
+													}
+													else if(hiNybble == 0x0B)
+													{
+														unsigned char controller = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														unsigned char controllerValue = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, controller), MAKEWORD(controllerValue, 0))));
+													}
+													else if(hiNybble == 0x0C)
+													{
+														unsigned char instrument = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, instrument), MAKEWORD(0, 0))));
+													}
+													else if(hiNybble == 0x0D)
+													{
+														unsigned char pressure = readByteFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, pressure), MAKEWORD(0, 0))));
+													}
+													else if(hiNybble == 0x0E)
+													{
+														unsigned short tUShort = readUShortFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+														unsigned char hiByte = HIBYTE(tUShort);
+														unsigned char loByte = LOBYTE(tUShort);
+														midiOutShortMsg(hMIDIOut, static_cast<DWORD>(MAKELONG(MAKEWORD(command, hiByte), MAKEWORD(loByte, 0))));
+													}
+													else if(hiNybble == 0x0F)
+													{
+														if(loNybble == 0x02)
+														{
+															midiTrackHeaders[jTrack].pData += 2;
+														}
+														else if(loNybble == 0x03)
+														{
+															midiTrackHeaders[jTrack].pData++;
+														}
+														else if( (loNybble == 0x00) || (loNybble == 0x07) )
+														{
+															unsigned int tLength = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]);
+															midiTrackHeaders[jTrack].pData += tLength;
+														}
+													}
+													else
+													{
+														midiTrackHeaders[jTrack].pData++;
+													}
+												}
+
+												midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
+												midiTrackHeaders[jTrack].triggerTime += midiTrackHeaders[jTrack].deltaTime;
+											}
+
+											if(midiTrackHeaders[jTrack].isEnabled)
+											{
+												if(midiTrackHeaders[jTrack].triggerTime < nextTriggerTime)
+												{
+													nextTriggerTime = midiTrackHeaders[jTrack].triggerTime;
 												}
 											}
-
-											midiTrackHeaders[jTrack].deltaTime = readVLQFromMIDITrackHeader(&midiTrackHeaders[jTrack]) * midi.tickLength;
-											midiTrackHeaders[jTrack].triggerTime += midiTrackHeaders[jTrack].deltaTime;
 										}
-
-										if(midiTrackHeaders[jTrack].isEnabled)
+										else
 										{
-											if(midiTrackHeaders[jTrack].triggerTime < nextTriggerTime)
-											{
-												nextTriggerTime = midiTrackHeaders[jTrack].triggerTime;
-											}
+											midiTrackHeaders[jTrack].isEnabled = 0;
 										}
-									}
-									else
-									{
-										midiTrackHeaders[jTrack].isEnabled = 0;
 									}
 								}
-							}
-							tCurrentTime = getHighResolutionTime();
+								tCurrentTime = getHighResolutionTime();
 
-							if(this->isPaused)
-							{
-								setAllNotesOff(&hMIDIOut);
-								double tPausedTime = tCurrentTime;
-								while(true)
+								if(this->isPaused)
 								{
-									Sleep(10);
-									if( (!this->isPaused) || this->isStopRequested )
+									setAllNotesOff(&hMIDIOut);
+									double tPausedTime = tCurrentTime;
+									while(true)
+									{
+										Sleep(10);
+										if( (!this->isPaused) || this->isStopRequested )
+										{
+											break;
+										}
+									}
+
+									if(this->isStopRequested)
 									{
 										break;
 									}
+
+									tCurrentTime = getHighResolutionTime();
+									nextTriggerTime += (tCurrentTime - tPausedTime);
+
+									for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
+									{
+										midiTrackHeaders[jTrack].triggerTime += (tCurrentTime - tPausedTime);
+									}
 								}
 
-								if(this->isStopRequested)
+								while( (!this->isStopRequested) && (tCurrentTime < nextTriggerTime) )
+								{
+									Sleep(static_cast<DWORD>(nextTriggerTime - tCurrentTime));
+									tCurrentTime = getHighResolutionTime();
+								}
+
+								if(!isAnyTrackEnabled)
 								{
 									break;
 								}
-
-								tCurrentTime = getHighResolutionTime();
-								nextTriggerTime += (tCurrentTime - tPausedTime);
-
-								for(jTrack = 0; jTrack < midi.countTracks; jTrack++)
-								{
-									midiTrackHeaders[jTrack].triggerTime += (tCurrentTime - tPausedTime);
-								}
 							}
-
-							while( (!this->isStopRequested) && (tCurrentTime < nextTriggerTime) )
-							{
-								Sleep(static_cast<DWORD>(nextTriggerTime - tCurrentTime));
-								tCurrentTime = getHighResolutionTime();
-							}
-
-							if(!isAnyTrackEnabled)
-							{
-								break;
-							}
-						}
+						}while(this->isLoop && (!this->isStopRequested));
 
 						setAllNotesOff(&hMIDIOut);
 						Sleep(10);
