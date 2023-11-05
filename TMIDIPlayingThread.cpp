@@ -50,6 +50,11 @@ __fastcall TMIDI::TMIDIPlayingThread::~TMIDIPlayingThread()
 	//
 }
 //---------------------------------------------------------------------------
+unsigned char __fastcall TMIDI::TMIDIPlayingThread::getIsLoop()
+{
+	return this->isLoop;
+}
+//---------------------------------------------------------------------------
 void __fastcall TMIDI::TMIDIPlayingThread::setIsLoop(unsigned char AIsLoop)
 {
 	if(this->isSelectedOuputDeviceValid)

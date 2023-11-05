@@ -14,6 +14,7 @@ namespace TMIDI{
 	public:
 		__fastcall TMIDIPlayingThread(const wchar_t * pFilename, unsigned char AVolumePercentage, unsigned char AIsLoop, TNotifyEvent AOnTerminate);
 		__fastcall ~TMIDIPlayingThread();
+		unsigned char __fastcall getIsLoop();
 		void __fastcall setIsLoop(unsigned char AIsLoop);
 		unsigned char __fastcall getIsPaused();
 		void __fastcall setIsPaused(unsigned char AIsPaused);
