@@ -22,6 +22,7 @@ namespace TMIDI{
 		void __fastcall setIsStopRequested(unsigned char AIsStopRequested);
 		unsigned char __fastcall getVolumePercentage();
 		void __fastcall setVolumePercentage(unsigned char AVolumePercentage);
+		unsigned long long __fastcall getSelectedOuputDeviceIndex();
 	protected:
 		void __fastcall Execute();
 	private:

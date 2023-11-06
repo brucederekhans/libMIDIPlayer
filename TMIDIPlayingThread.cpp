@@ -102,6 +102,11 @@ void __fastcall TMIDI::TMIDIPlayingThread::setVolumePercentage(unsigned char AVo
 	}
 }
 //---------------------------------------------------------------------------
+unsigned long long __fastcall TMIDI::TMIDIPlayingThread::getSelectedOuputDeviceIndex()
+{
+	return this->selectedOuputDeviceIndex;
+}
+//---------------------------------------------------------------------------
 void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----
