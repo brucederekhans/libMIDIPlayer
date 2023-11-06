@@ -23,6 +23,7 @@ namespace TMIDI{
 		unsigned char __fastcall getVolumePercentage();
 		void __fastcall setVolumePercentage(unsigned char AVolumePercentage);
 		unsigned long long __fastcall getSelectedOuputDeviceIndex();
+		bool __fastcall getIsSelectedOuputDeviceValid();
 	protected:
 		void __fastcall Execute();
 	private:

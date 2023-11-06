@@ -107,6 +107,11 @@ unsigned long long __fastcall TMIDI::TMIDIPlayingThread::getSelectedOuputDeviceI
 	return this->selectedOuputDeviceIndex;
 }
 //---------------------------------------------------------------------------
+bool __fastcall TMIDI::TMIDIPlayingThread::getIsSelectedOuputDeviceValid()
+{
+	return this->isSelectedOuputDeviceValid;
+}
+//---------------------------------------------------------------------------
 void __fastcall TMIDI::TMIDIPlayingThread::Execute()
 {
 	//---- Place thread code here ----
